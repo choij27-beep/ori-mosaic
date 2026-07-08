@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ori-Mosaic 織診断 — Discover Your Edo Aesthetic</title>
+<meta name="description" content="Seven small choices reveal your Edo aesthetic — and the real stories of Japanese craft, before you ever board the plane. 7つの選択が、あなたの江戸の美意識を明かします。">
+<!-- Social preview (website sharing). After you host the game, replace the two
+     PLACEHOLDER values below with your real page URL and an uploaded preview
+     image (1200x630px works best — I can generate one for you). -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ori-Mosaic 織診断 — Which Edo aesthetic runs in your blood?">
+<meta property="og:description" content="A two-minute card-draw through Nihonbashi. Learn real Japanese craft stories, discover your aesthetic type, and find your secret card. 日英対応。">
+<meta property="og:url" content="PLACEHOLDER-YOUR-PAGE-URL">
+<meta property="og:image" content="PLACEHOLDER-YOUR-PREVIEW-IMAGE-URL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lacquer:#12100e;
+  --lacquer-2:#1b1713;
+  --panel:#211b15;
+  --gold:#c8a24d;
+  --gold-hi:#eccf85;
+  --gold-dim:#8a6f38;
+  --washi:#f2e7d2;
+  --washi-dim:#c9bda4;
+  --enji:#8e2c33;
+  --kon:#232f4b;
+  --display:'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+  --body:'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:var(--lacquer);
+  color:var(--washi);
+  font-family:var(--body);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200,162,77,.05), transparent 55%),
+    radial-gradient(ellipse at 50% 115%, rgba(142,44,51,.07), transparent 60%);
+}
+#flecks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fleck{
+  position:absolute;background:linear-gradient(135deg,var(--gold-hi),var(--gold-dim));
+  opacity:.55;border-radius:30% 70% 60% 40%;
+  box-shadow:0 0 6px rgba(232,207,133,.25);
+}
+@media (prefers-reduced-motion: no-preference){
+  .fleck{animation:glint 7s ease-in-out infinite}
+  @keyframes glint{0%,100%{opacity:.35}50%{opacity:.7}}
+}
+
+/* dual-language rendering: Japanese primary, English beneath */
+.en-sub{
+  display:block;color:var(--washi-dim);font-size:.85em;font-family:var(--body);
+  font-weight:400;letter-spacing:.02em;margin-top:3px;line-height:1.55;
+}
+#intro h1 .en-sub{font-size:17px;letter-spacing:.05em;margin-top:12px}
+.q-text .en-sub{font-size:15.5px;margin-top:8px}
+.fact .en-sub{margin-top:10px}
+.name-en{font-family:var(--display);color:var(--washi-dim);font-size:16px;letter-spacing:.12em;margin-top:6px}
+
+/* "your choice" echo on the fact page */
+.choice-echo{
+  border:1px solid #3a3021;border-radius:8px;padding:12px 16px;margin:12px 0 16px;
+  background:#171209;font-size:14px;color:var(--washi);
+}
+.choice-echo .lbl{
+  font-family:var(--display);font-size:11px;letter-spacing:.26em;color:var(--gold);
+  display:block;margin-bottom:6px;
+}
+.choice-echo .rx{color:var(--gold-hi);font-family:var(--display);display:block;margin-top:8px}
+
+/* saved-card overlay (long-press / right-click to save) */
+.overlay{
+  position:fixed;inset:0;z-index:50;background:rgba(10,8,6,.92);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;gap:16px;
+}
+.overlay img{
+  max-width:min(86vw,420px);max-height:62vh;border:1px solid var(--gold);
+  border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);
+}
+.overlay .cap{color:var(--washi-dim);font-size:13px;text-align:center;max-width:44ch}
+.overlay .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.overlay .btn-gold{margin-top:0;text-decoration:none;display:inline-block}
+
+.stage{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 20px 80px}
+.screen{display:none;animation:rise .5s ease both}
+.screen.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.screen{animation:none}.fleck{animation:none}}
+
+/* ---------- shared card frame ---------- */
+.frame{
+  border:1px solid var(--gold-dim);
+  outline:1px solid rgba(200,162,77,.25);
+  outline-offset:4px;
+  background:linear-gradient(160deg,var(--panel),var(--lacquer-2) 70%);
+  border-radius:10px;
+  padding:26px 24px;
+  position:relative;
+}
+.frame::before,.frame::after{content:"◆";color:var(--gold-dim);font-size:9px;position:absolute}
+.frame::before{top:8px;left:10px}
+.frame::after{bottom:8px;right:10px}
+.eyebrow{
+  font-family:var(--display);letter-spacing:.35em;font-size:11px;
+  color:var(--gold);text-transform:uppercase;margin-bottom:10px;
+}
+h1,h2,h3{font-family:var(--display);font-weight:700;color:var(--washi)}
+
+/* ---------- intro ---------- */
+#intro{text-align:center;padding-top:2vh}
+.mon{
+  width:92px;height:92px;margin:0 auto 18px;border-radius:50%;
+  border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:44px;color:var(--gold-hi);
+  background:radial-gradient(circle at 35% 30%, #2a2118, #14100b);
+  box-shadow:0 0 0 5px rgba(200,162,77,.12), 0 8px 30px rgba(0,0,0,.6);
+}
+.jp-line{font-family:var(--display);color:var(--gold);letter-spacing:.28em;font-size:13px;margin-bottom:10px}
+#intro h1{font-size:clamp(28px,6.2vw,44px);letter-spacing:.05em;line-height:1.3}
+#intro .sub{margin:14px auto 6px;max-width:48ch;color:var(--washi-dim);font-size:15px}
+.hand-preview{display:flex;justify-content:center;gap:0;margin:34px 0 10px;height:132px;align-items:flex-end}
+.mini-card{
+  width:76px;height:112px;border-radius:7px;border:1px solid var(--gold-dim);
+  background:linear-gradient(170deg,#241d15,#161210);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  font-family:var(--display);color:var(--gold-hi);
+  box-shadow:0 10px 24px rgba(0,0,0,.55);
+  transform-origin:bottom center;
+}
+.mini-card small{font-size:9px;letter-spacing:.22em;color:var(--washi-dim);font-family:var(--body)}
+.mini-card .k{font-size:26px}
+.mini-card:nth-child(1){transform:rotate(-14deg) translateX(16px)}
+.mini-card:nth-child(2){transform:rotate(-7deg) translateX(8px)}
+.mini-card:nth-child(3){transform:rotate(0) translateY(-8px);border-color:var(--gold)}
+.mini-card:nth-child(4){transform:rotate(7deg) translateX(-8px)}
+.mini-card:nth-child(5){transform:rotate(14deg) translateX(-16px)}
+button{font-family:var(--body);cursor:pointer;border:none}
+.btn-gold{
+  margin-top:26px;padding:15px 40px;border-radius:6px;
+  background:linear-gradient(140deg,var(--gold-hi),var(--gold) 55%,var(--gold-dim));
+  color:#241a08;font-weight:700;font-size:16px;letter-spacing:.1em;
+  box-shadow:0 6px 22px rgba(200,162,77,.28);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,162,77,.4)}
+.btn-gold:focus-visible,.btn-ghost:focus-visible,.opt:focus-visible,.btn-outline:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.btn-ghost{
+  margin-top:14px;background:transparent;color:var(--gold);font-size:13px;letter-spacing:.14em;
+  border-bottom:1px solid var(--gold-dim);padding:4px 2px;
+}
+.note-tiny{margin-top:26px;color:#6d6353;font-size:11.5px;letter-spacing:.06em}
+
+/* ---------- quiz ---------- */
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.hud .qcount{font-family:var(--display);color:var(--gold);letter-spacing:.18em;font-size:12px}
+.layers{display:flex;gap:8px}
+.layer-seal{
+  width:34px;height:34px;border-radius:50%;border:1px solid #4a3d28;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:15px;color:#5b4f3b;
+  transition:all .4s ease;
+}
+.layer-seal.lit{
+  border-color:var(--gold);color:var(--gold-hi);
+  background:radial-gradient(circle,#2c2113,#181209);
+  box-shadow:0 0 10px rgba(200,162,77,.35);
+}
+.q-scene{font-size:13px;color:var(--gold);letter-spacing:.22em;font-family:var(--display);margin-bottom:8px}
+.q-text{font-size:clamp(19px,4.6vw,24px);line-height:1.55;margin-bottom:22px;font-family:var(--display);font-weight:600}
+.opts{display:grid;gap:12px}
+.opt{
+  text-align:left;padding:16px 18px;border-radius:8px;
+  border:1px solid #3c3223;background:linear-gradient(160deg,#1e1913,#161210);
+  color:var(--washi);font-size:15px;line-height:1.6;
+  display:flex;align-items:center;gap:14px;
+  transition:border-color .15s, transform .15s, background .15s;
+}
+.opt:hover{border-color:var(--gold);transform:translateX(4px);background:#231c13}
+.opt .swatch{flex:0 0 54px;height:54px;border-radius:6px;border:1px solid var(--gold-dim);overflow:hidden}
+.opt .swatch svg{display:block;width:100%;height:100%}
+.opt b{font-family:var(--display);color:var(--gold-hi);font-weight:600}
+
+/* fact interstitial */
+.fact{
+  border-left:3px solid var(--gold);
+  background:linear-gradient(160deg,#221b12,#191410);
+  border-radius:0 8px 8px 0;
+  padding:18px 20px;margin-top:4px;
+}
+.fact .tag{
+  display:inline-block;font-family:var(--display);font-size:11px;color:#1d1508;
+  background:linear-gradient(140deg,var(--gold-hi),var(--gold));
+  padding:2px 10px;border-radius:3px;letter-spacing:.24em;margin-bottom:10px;
+}
+.fact h3{font-size:16.5px;margin-bottom:6px;color:var(--gold-hi)}
+.fact p{font-size:14px;color:var(--washi-dim)}
+.fact .btn-gold{margin-top:18px;padding:11px 30px;font-size:14px}
+
+/* ---------- result ---------- */
+.result-card{
+  border:1.5px solid var(--gold);border-radius:14px;overflow:hidden;
+  background:#14100c;
+  box-shadow:0 0 0 6px rgba(200,162,77,.12), 0 24px 60px rgba(0,0,0,.65);
+}
+.result-card.hiden{border-color:var(--gold-hi);box-shadow:0 0 0 6px rgba(236,207,133,.22),0 0 60px rgba(200,162,77,.35)}
+.rc-banner{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 16px;background:linear-gradient(90deg,#241c10,#1a1409);
+  border-bottom:1px solid var(--gold-dim);
+}
+.rc-banner .cat{font-family:var(--display);letter-spacing:.35em;color:var(--gold-hi);font-size:13px}
+.rc-banner .seal{
+  width:28px;height:28px;border-radius:50%;border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;font-family:var(--display);
+  font-size:13px;color:var(--gold-hi);
+}
+.rc-scene{height:210px}
+.rc-scene svg{display:block;width:100%;height:100%}
+.rc-name{text-align:center;padding:20px 18px 6px}
+.rc-name .big-kanji{
+  font-family:var(--display);font-size:64px;line-height:1;color:var(--gold-hi);
+  text-shadow:0 4px 24px rgba(200,162,77,.35);
+}
+.rc-name h2{font-size:24px;margin-top:8px;letter-spacing:.04em}
+.rc-name .romaji{color:var(--washi-dim);font-size:13px;letter-spacing:.24em;margin-top:2px}
+.rc-essence{max-width:52ch;margin:12px auto 0;padding:0 22px;text-align:center;color:var(--washi-dim);font-size:14.5px}
+.rc-ori{margin:22px 18px 0;border:1px solid var(--gold-dim);border-radius:8px;overflow:hidden}
+.rc-ori .band{height:56px}
+.rc-ori .band svg{display:block;width:100%;height:100%}
+.rc-ori .cap{padding:10px 14px;font-size:13px;color:var(--washi-dim);background:#191410}
+.rc-ori .cap b{color:var(--gold-hi);font-family:var(--display);font-weight:600}
+.rc-rows{padding:18px}
+.rc-row{
+  border:1px solid #352c1e;border-radius:8px;padding:14px 16px;margin-bottom:12px;
+  background:linear-gradient(160deg,#1d1710,#15110c);
+}
+.rc-row h4{font-family:var(--display);color:var(--gold);font-size:13px;letter-spacing:.26em;margin-bottom:8px;font-weight:600}
+.rc-row p,.rc-row li{font-size:14px;color:var(--washi)}
+.rc-row ul{list-style:none}
+.rc-row li{padding:5px 0 5px 20px;position:relative;color:var(--washi-dim)}
+.rc-row li::before{content:"◆";position:absolute;left:0;top:6px;font-size:9px;color:var(--gold)}
+.rc-row li b{color:var(--washi)}
+.rc-orn{display:flex;align-items:center;gap:16px}
+.rc-orn .kz{flex:0 0 84px;height:64px;border:1px solid #3a3021;border-radius:6px;background:#171209;overflow:hidden}
+.rc-orn .kz svg{display:block;width:100%;height:100%}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.actions .btn-gold{margin-top:0}
+.btn-outline{
+  padding:14px 26px;border-radius:6px;border:1px solid var(--gold-dim);
+  background:transparent;color:var(--gold-hi);font-size:14px;letter-spacing:.08em;
+}
+.btn-outline:hover{border-color:var(--gold)}
+.share-toast{text-align:center;margin-top:14px;font-size:13px;color:var(--gold-hi);opacity:0;transition:opacity .3s}
+.share-toast.show{opacity:1}
+.hiden-flare{
+  text-align:center;font-family:var(--display);color:var(--gold-hi);
+  letter-spacing:.28em;font-size:12px;padding-bottom:14px;
+}
+
+/* ---------- compendium ---------- */
+#compendium h2{margin-bottom:6px}
+#compendium .lede{color:var(--washi-dim);font-size:14px;margin-bottom:22px}
+.comp-grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:560px){.comp-grid{grid-template-columns:1fr 1fr}}
+.comp-card{
+  border:1px solid #3a3021;border-radius:10px;overflow:hidden;
+  background:linear-gradient(160deg,#1e1811,#15110c);
+  display:flex;flex-direction:column;
+}
+.comp-art{height:110px;border-bottom:1px solid #33291b;background:#151009}
+.comp-art svg{display:block;width:100%;height:100%}
+.comp-body{padding:16px 18px}
+.comp-card .ck{font-family:var(--display);color:var(--gold-hi);font-size:15px;letter-spacing:.1em;margin-bottom:6px}
+.comp-card .ck span{
+  display:inline-block;border:1px solid var(--gold-dim);border-radius:50%;
+  width:26px;height:26px;text-align:center;line-height:24px;font-size:13px;margin-right:8px;
+}
+.comp-card p{font-size:13.5px;color:var(--washi-dim)}
+.back-row{margin-top:26px;text-align:center}
+
+footer{
+  position:relative;z-index:1;text-align:center;padding:0 20px 40px;
+  color:#5d5445;font-size:11px;letter-spacing:.14em;
+}
+</style>
+</head>
+<body>
+<div id="flecks" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen on" id="intro" aria-label="Introduction">
+    <div class="mon">織</div>
+    <div class="jp-line">織モザイク ・ 数寄者診断</div>
+    <h1 id="i-title"></h1>
+    <p class="sub" id="i-sub"></p>
+
+    <div class="hand-preview" aria-hidden="true">
+      <div class="mini-card"><span class="k">景</span><small>KEI</small></div>
+      <div class="mini-card"><span class="k">美</span><small>BIJIN</small></div>
+      <div class="mini-card"><span class="k">織</span><small>ORI</small></div>
+      <div class="mini-card"><span class="k">飾</span><small>KAZARI</small></div>
+      <div class="mini-card"><span class="k">秘</span><small>HIDEN</small></div>
+    </div>
+
+    <button class="btn-gold" id="i-start" onclick="startQuiz()"></button><br>
+    <button class="btn-ghost" id="i-comp" onclick="show('compendium')"></button>
+    <p class="note-tiny" id="i-note"></p>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="screen" id="quiz" aria-label="Quiz">
+    <div class="hud">
+      <span class="qcount" id="qcount"></span>
+      <div class="layers" id="layers" aria-label="Your hand assembles">
+        <div class="layer-seal" data-l="0">景</div>
+        <div class="layer-seal" data-l="1">織</div>
+        <div class="layer-seal" data-l="2">飾</div>
+        <div class="layer-seal" data-l="3">美</div>
+        <div class="layer-seal" data-l="4">秘</div>
+      </div>
+    </div>
+    <div class="frame">
+      <div class="q-scene" id="qscene"></div>
+      <p class="q-text" id="qtext"></p>
+      <div class="opts" id="opts"></div>
+    </div>
+  </section>
+
+  <!-- ============ FACT ============ -->
+  <section class="screen" id="factscreen" aria-label="Cultural note">
+    <div class="fact">
+      <span class="tag">豆知識 · MAME-CHISHIKI</span>
+      <div class="choice-echo" id="factchoice"></div>
+      <h3 id="facttitle"></h3>
+      <p id="factbody"></p>
+      <button class="btn-gold" id="factnext" onclick="nextQuestion()"></button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="screen" id="result" aria-label="Your result"></section>
+
+  <!-- ============ COMPENDIUM ============ -->
+  <section class="screen" id="compendium" aria-label="Craft compendium">
+    <div class="eyebrow">Craft Compendium · 工芸図鑑</div>
+    <h2 id="c-title"></h2>
+    <p class="lede" id="c-lede"></p>
+    <div class="comp-grid" id="compgrid"></div>
+    <div class="back-row"><button class="btn-outline" id="c-back" onclick="show('intro')"></button></div>
+  </section>
+
+</main>
+
+<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」</footer>
+<script>
+/* ================= gold flecks ================= */
+(function(){
+  const wrap = document.getElementById('flecks');
+  for(let i=0;i<42;i++){
+    const f=document.createElement('span');
+    f.className='fleck';
+    const s=2+Math.random()*9;
+    f.style.width=s+'px'; f.style.height=(s*(0.5+Math.random()))+'px';
+    f.style.left=Math.random()*100+'vw';
+    f.style.top=Math.random()*100+'vh';
+    f.style.transform='rotate('+(Math.random()*360)+'deg)';
+    f.style.animationDelay=(Math.random()*7)+'s';
+    wrap.appendChild(f);
+  }
+})();
+
+/* ================= i18n ================= */
+/* Every string ships as {en, ja} and both are rendered together. */
+
+const T={
+  introTitle:{en:"Which Edo aesthetic<br>runs in your blood?",ja:"あなたの血に流れる<br>江戸の美意識は？"},
+  introSub:{en:"Seven small choices — a morning walk, a pattern, a gift — reveal the card you were always meant to hold. Along the way, you'll pick up the real stories behind Japan's living crafts, before you ever board the plane.",
+            ja:"朝の散歩、選ぶ文様、贈り物——7つの小さな選択が、あなたが持つべき一枚を明かします。飛行機に乗るその前に、日本の生きた工芸の物語を拾い集めながら。"},
+  start:{en:"Draw your first card",ja:"最初の一枚を引く"},
+  browse:{en:"Browse the craft compendium 図鑑",ja:"工芸図鑑を見る"},
+  note:{en:"約2分 · A two-minute journey through Nihonbashi",ja:"約2分・日本橋をめぐる小さな旅"},
+  next:{en:"Continue 次へ",ja:"次へ"},
+  share:{en:"Share your card 共有",ja:"結果を共有する"},
+  again:{en:"Draw again 再抽選",ja:"もう一度引く"},
+  comp:{en:"Craft compendium 図鑑",ja:"工芸図鑑"},
+  toast:{en:"Copied — paste it anywhere ✦",ja:"コピーしました ✦"},
+  hidenFlare:{en:"✦ 秘伝 — YOU FOUND THE SECRET CARD ✦",ja:"✦ 秘伝 —— 隠しカードを引き当てました ✦"},
+  rowOrn:{en:"飾 · YOUR ORNAMENT",ja:"飾・あなたの装身具"},
+  rowTip:{en:"心得 · AS A GUEST IN JAPAN",ja:"心得・旅人としてのあなたへ"},
+  rowSpots:{en:"日本橋 · SEEK OUT",ja:"日本橋・訪ねてほしい場所"},
+  compTitle:{en:"The living crafts behind the cards",ja:"カードの向こうにある、生きた工芸"},
+  compLede:{en:"Every card in Ori-Mosaic points to a real workshop, a real lineage of hands. A few to know before you arrive:",
+            ja:"織モザイクのすべてのカードは、実在する工房と、受け継がれてきた手仕事につながっています。出発前に知っておきたい代表格を。"},
+  back:{en:"← Back to the beginning",ja:"← 最初に戻る"},
+  copyPrompt:{en:"Copy your result:",ja:"結果をコピーしてください："},
+  save:{en:"Save card as image 画像保存",ja:"カードを画像で保存"},
+  saving:{en:"Composing your card…",ja:"カードを仕立てています…"},
+  tagline:{en:"Which card is in your blood?",ja:"あなたの血に流れる一枚は？"},
+  secretRibbon:{en:"SECRET CARD · 秘伝",ja:"秘伝 · SECRET CARD"},
+  qword:{en:"QUESTION",ja:""}
+};
+
+/* ================= SVG patterns ================= */
+const PATTERNS = {
+  seigaiha:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="${bg}"/><g fill="none" stroke="${fg}" stroke-width="2"><circle cx="0" cy="20" r="18"/><circle cx="0" cy="20" r="12"/><circle cx="0" cy="20" r="6"/><circle cx="40" cy="20" r="18"/><circle cx="40" cy="20" r="12"/><circle cx="40" cy="20" r="6"/><circle cx="20" cy="10" r="18"/><circle cx="20" cy="10" r="12"/><circle cx="20" cy="10" r="6"/></g></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  asanoha:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="32" height="56" patternUnits="userSpaceOnUse"><rect width="32" height="56" fill="${bg}"/><g stroke="${fg}" stroke-width="1.5" fill="none"><path d="M16 0 L32 9.3 L32 28 L16 37.3 L0 28 L0 9.3 Z"/><path d="M16 18.6 L16 0 M16 18.6 L32 9.3 M16 18.6 L32 28 M16 18.6 L16 37.3 M16 18.6 L0 28 M16 18.6 L0 9.3"/><path d="M0 37.3 L16 46.6 M32 37.3 L16 46.6 M16 37.3 L16 56 M0 46.6 L0 56 M32 46.6 L32 56"/><path d="M16 46.6 L0 37.3 M16 46.6 L0 56 M16 46.6 L32 56 M16 46.6 L32 37.3"/></g></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  kikko:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="30" height="52" patternUnits="userSpaceOnUse"><rect width="30" height="52" fill="${bg}"/><g fill="none" stroke="${fg}" stroke-width="2"><path d="M15 0 L30 9 L30 26 L15 35 L0 26 L0 9 Z"/><path d="M15 35 L30 44 L30 61 L15 70 L0 61 L0 44 Z"/><circle cx="15" cy="17" r="3" fill="${fg}" stroke="none"/></g></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  ichimatsu:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="${bg}"/><rect width="20" height="20" fill="${fg}"/><rect x="20" y="20" width="20" height="20" fill="${fg}"/></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  komon:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="${bg}"/><circle cx="3.5" cy="3.5" r="1.4" fill="${fg}"/><circle cx="10.5" cy="10.5" r="1.4" fill="${fg}"/></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  brocade:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="36" height="36" patternUnits="userSpaceOnUse"><rect width="36" height="36" fill="${bg}"/><g fill="none" stroke="${fg}" stroke-width="1.8"><path d="M18 2 L34 18 L18 34 L2 18 Z"/><path d="M18 9 L27 18 L18 27 L9 18 Z"/><circle cx="18" cy="18" r="2.6" fill="${fg}" stroke="none"/><circle cx="0" cy="0" r="3.5"/><circle cx="36" cy="0" r="3.5"/><circle cx="0" cy="36" r="3.5"/><circle cx="36" cy="36" r="3.5"/></g></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`,
+  yuzen:(id,fg,bg)=>`<svg viewBox="0 0 120 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${id}" width="48" height="48" patternUnits="userSpaceOnUse"><rect width="48" height="48" fill="${bg}"/><g fill="${fg}"><path d="M24 8 c5 6 5 10 0 16 c-5 -6 -5 -10 0 -16Z"/><path d="M24 8 c6 5 10 5 16 0 c-6 -5 -10 -5 -16 0Z" opacity=".75"/><path d="M24 24 c-6 -5 -10 -5 -16 0 c6 5 10 5 16 0Z" opacity=".75"/><circle cx="42" cy="40" r="3"/><circle cx="8" cy="38" r="2.2"/></g></pattern></defs><rect width="120" height="120" fill="url(#${id})"/></svg>`
+};
+
+/* ================= Kei landscape scenes ================= */
+const SCENES = {
+  snow:`<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Nihonbashi bridge in snow">
+    <defs><linearGradient id="skyS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#37415a"/><stop offset="1" stop-color="#6b7288"/></linearGradient></defs>
+    <rect width="400" height="210" fill="url(#skyS)"/>
+    <circle cx="330" cy="46" r="22" fill="#e9e2d2" opacity=".85"/>
+    <path d="M0 150 Q200 96 400 150 L400 165 Q200 112 0 165 Z" fill="#e8e4da"/>
+    <path d="M0 165 Q200 112 400 165 L400 210 L0 210 Z" fill="#232c3f"/>
+    <g stroke="#e8e4da" stroke-width="3">${[60,120,180,240,300,340].map(x=>`<line x1="${x}" y1="${150-Math.round(24*Math.sin(Math.PI*x/400))}" x2="${x}" y2="${168-Math.round(24*Math.sin(Math.PI*x/400))}"/>`).join('')}</g>
+    <g fill="#e9e2d2">${Array.from({length:36},(_,i)=>`<circle cx="${(i*53)%400}" cy="${(i*37)%200}" r="${1+(i%3)*0.8}" opacity=".8"/>`).join('')}</g>
+    <path d="M40 150 l6 -16 l6 16 Z M52 150 l5 -12 l5 12 Z" fill="#1d2434"/>
+  </svg>`,
+  hanabi:`<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Fireworks over the river at night">
+    <defs><linearGradient id="skyH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#101527"/><stop offset="1" stop-color="#233054"/></linearGradient></defs>
+    <rect width="400" height="210" fill="url(#skyH)"/>
+    ${[[110,60,'#e8c877'],[280,44,'#c96a5a'],[205,90,'#9db8d9']].map(([cx,cy,c])=>`<g stroke="${c}" stroke-width="1.6">${Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;return `<line x1="${cx}" y1="${cy}" x2="${(cx+28*Math.cos(a)).toFixed(1)}" y2="${(cy+28*Math.sin(a)).toFixed(1)}"/>`}).join('')}<circle cx="${cx}" cy="${cy}" r="3" fill="${c}"/></g>`).join('')}
+    <path d="M0 158 Q200 112 400 158 L400 172 Q200 126 0 172 Z" fill="#0c0f1a"/>
+    <rect y="172" width="400" height="38" fill="#182241"/>
+    <g fill="#e8c877" opacity=".7">${[30,90,150,230,300,360].map(x=>`<rect x="${x}" y="176" width="26" height="2" rx="1"/>`).join('')}</g>
+    <path d="M120 158 q6 -18 12 0 Z M300 152 q6 -16 12 0 Z" fill="#0c0f1a"/>
+  </svg>`,
+  fuji:`<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mount Fuji seen over Edo rooftops">
+    <defs><linearGradient id="skyF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e0bd"/><stop offset="1" stop-color="#e6c896"/></linearGradient></defs>
+    <rect width="400" height="210" fill="url(#skyF)"/>
+    <circle cx="72" cy="52" r="20" fill="#b8433f"/>
+    <path d="M130 150 L235 42 L340 150 Z" fill="#5a6d8f"/>
+    <path d="M212 66 L235 42 L258 66 L246 74 L235 62 L224 74 Z" fill="#f4efe3"/>
+    <g fill="#2f2a24">${[0,70,140,210,280,350].map((x,i)=>`<path d="M${x} 210 L${x} ${176-(i%2)*8} L${x+35} ${160-(i%2)*8} L${x+70} ${176-(i%2)*8} L${x+70} 210 Z"/>`).join('')}</g>
+    <g stroke="#8a6f38" stroke-width="2">${[0,70,140,210,280,350].map((x,i)=>`<line x1="${x-6}" y1="${178-(i%2)*8}" x2="${x+76}" y2="${178-(i%2)*8}"/>`).join('')}</g>
+  </svg>`,
+  chochin:`<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Red lanterns over a night street">
+    <defs><linearGradient id="skyC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#231226"/><stop offset="1" stop-color="#3c1e33"/></linearGradient></defs>
+    <rect width="400" height="210" fill="url(#skyC)"/>
+    <line x1="0" y1="52" x2="400" y2="46" stroke="#120a14" stroke-width="3"/>
+    ${[40,110,180,250,320,385].map((x,i)=>`<g><line x1="${x}" y1="${49-i%2}" x2="${x}" y2="${62+(i%2)*6}" stroke="#120a14" stroke-width="2"/><ellipse cx="${x}" cy="${84+(i%2)*6}" rx="17" ry="22" fill="#b8433f"/><ellipse cx="${x-5}" cy="${80+(i%2)*6}" rx="6" ry="12" fill="#d96a57" opacity=".7"/><g stroke="#7c2320" stroke-width="1">${[-12,-4,4,12].map(dy=>`<path d="M${x-16} ${84+(i%2)*6+dy} q16 4 32 0" fill="none"/>`).join('')}</g><rect x="${x-7}" y="${60+(i%2)*6}" width="14" height="4" fill="#e8c877"/></g>`).join('')}
+    <rect y="176" width="400" height="34" fill="#160d18"/>
+    <path d="M0 176 Q200 150 400 176" fill="none" stroke="#e8c877" stroke-width="1.4" opacity=".55"/>
+    <g fill="#e8c877" opacity=".5"><circle cx="120" cy="190" r="2"/><circle cx="265" cy="194" r="2"/></g>
+  </svg>`,
+  gold:`<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A golden dawn over Nihonbashi with Mount Fuji">
+    <defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2010"/><stop offset="1" stop-color="#6b5324"/></linearGradient></defs>
+    <rect width="400" height="210" fill="url(#skyG)"/>
+    <circle cx="200" cy="64" r="30" fill="#eccf85"/>
+    <path d="M110 130 L200 58 L290 130 Z" fill="#8a6f38" opacity=".9"/>
+    <path d="M182 74 L200 58 L218 74 L208 80 L200 70 L192 80 Z" fill="#f4ead0"/>
+    <path d="M0 158 Q200 108 400 158 L400 172 Q200 122 0 172 Z" fill="#eccf85"/>
+    <g stroke="#eccf85" stroke-width="3">${[70,140,200,260,330].map(x=>`<line x1="${x}" y1="${156-Math.round(24*Math.sin(Math.PI*x/400))}" x2="${x}" y2="${172-Math.round(24*Math.sin(Math.PI*x/400))}"/>`).join('')}</g>
+    <rect y="172" width="400" height="38" fill="#1c1408"/>
+    <g fill="#eccf85">${Array.from({length:22},(_,i)=>`<rect x="${(i*71)%396}" y="${(i*53)%200}" width="3" height="1.6" transform="rotate(${i*31} ${(i*71)%396} ${(i*53)%200})" opacity=".8"/>`).join('')}</g>
+  </svg>`
+};
+</script>
+<script>
+/* ================= craft illustrations (original SVG art) =================
+   To use your own product photos instead, replace any entry below with:
+   `<img src="your-photo.jpg" alt="..." style="width:100%;height:100%;object-fit:cover">`
+============================================================================ */
+const ART = {
+  ukiyoe:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <rect x="52" y="10" width="96" height="90" rx="3" fill="#efe6d0" stroke="#8a6f38" stroke-width="2"/>
+    <path d="M60 80 Q80 56 96 74 Q104 82 112 70 Q100 60 108 50 Q124 62 140 52 L140 92 L60 92 Z" fill="#3f5d86"/>
+    <path d="M60 80 Q80 56 96 74" fill="none" stroke="#e9e2d2" stroke-width="2"/>
+    <path d="M96 74 q-4 -12 6 -16 q-2 8 4 10 Z" fill="#e9e2d2"/>
+    <path d="M116 44 L127 30 L138 44 Z" fill="#5a6d8f"/><path d="M123 35 L127 30 L131 35 L127 38 Z" fill="#efe6d0"/>
+    <rect x="58" y="16" width="10" height="26" fill="#b8433f" opacity=".9"/>
+    <circle cx="30" cy="72" r="16" fill="none" stroke="#8a6f38" stroke-width="3"/>
+    <circle cx="30" cy="72" r="7" fill="#8a6f38"/>
+    <rect x="160" y="26" width="26" height="8" rx="2" fill="#6b4a2a"/><rect x="168" y="34" width="10" height="44" rx="2" fill="#8a6f38"/>
+  </svg>`,
+  loom:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <g stroke="#8a6f38" stroke-width="1.4">${Array.from({length:22},(_,i)=>`<line x1="${18+i*8}" y1="8" x2="${18+i*8}" y2="102"/>`).join('')}</g>
+    <g stroke="#eccf85" stroke-width="1.6">${Array.from({length:6},(_,i)=>`<line x1="${20+i*30}" y1="8" x2="${20+i*30}" y2="102"/>`).join('')}</g>
+    <rect x="10" y="44" width="180" height="22" rx="4" fill="#33261a" stroke="#c8a24d" stroke-width="1.6"/>
+    <g fill="none" stroke="#c8a24d" stroke-width="1.6"><path d="M28 55 L44 55 M36 47 L36 63"/><circle cx="70" cy="55" r="6"/><path d="M92 49 l12 12 M104 49 l-12 12"/><circle cx="130" cy="55" r="6"/><path d="M156 55 L172 55 M164 47 L164 63"/></g>
+    <ellipse cx="100" cy="86" rx="26" ry="8" fill="#6b4a2a" stroke="#eccf85" stroke-width="1.4"/>
+    <line x1="74" y1="86" x2="126" y2="86" stroke="#eccf85" stroke-width="1.2"/>
+  </svg>`,
+  tsumugi:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <g><rect x="16" y="18" width="168" height="24" rx="12" fill="#2b241d"/><rect x="16" y="18" width="168" height="24" rx="12" fill="none" stroke="#8a6f38" stroke-width="1.4"/><circle cx="30" cy="30" r="9" fill="#151009" stroke="#c8a24d" stroke-width="1.6"/><circle cx="30" cy="30" r="4" fill="#c8a24d"/></g>
+    <g><rect x="16" y="48" width="168" height="24" rx="12" fill="#232f4b"/><rect x="16" y="48" width="168" height="24" rx="12" fill="none" stroke="#8a6f38" stroke-width="1.4"/><circle cx="30" cy="60" r="9" fill="#151009" stroke="#c8a24d" stroke-width="1.6"/><circle cx="30" cy="60" r="4" fill="#c8a24d"/><g stroke="#8fa6c4" stroke-width="1">${Array.from({length:10},(_,i)=>`<line x1="${52+i*13}" y1="50" x2="${48+i*13}" y2="70"/>`).join('')}</g></g>
+    <g><rect x="16" y="78" width="168" height="24" rx="12" fill="#3a2a20"/><rect x="16" y="78" width="168" height="24" rx="12" fill="none" stroke="#8a6f38" stroke-width="1.4"/><circle cx="30" cy="90" r="9" fill="#151009" stroke="#c8a24d" stroke-width="1.6"/><circle cx="30" cy="90" r="4" fill="#c8a24d"/><g fill="#c9bda4">${Array.from({length:14},(_,i)=>`<rect x="${50+i*9.5}" y="${84+(i%2)*8}" width="3.5" height="3.5" transform="rotate(45 ${52+i*9.5} ${86+(i%2)*8})"/>`).join('')}</g></g>
+  </svg>`,
+  dye:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <rect x="22" y="16" width="110" height="78" rx="4" fill="#6b4a2a"/>
+    <rect x="30" y="24" width="94" height="62" rx="2" fill="#efe6d0"/>
+    <g fill="#33261a">${Array.from({length:48},(_,i)=>`<circle cx="${38+(i%8)*12}" cy="${32+Math.floor(i/8)*10}" r="1.8"/>`).join('')}</g>
+    <path d="M30 24 L124 86" stroke="#8e2c33" stroke-width="10" opacity=".28" stroke-linecap="round"/>
+    <g transform="rotate(32 158 56)"><rect x="150" y="14" width="14" height="52" rx="6" fill="#6b4a2a" stroke="#c8a24d" stroke-width="1.2"/><path d="M150 66 q7 26 14 0 Z" fill="#8e2c33"/></g>
+    <circle cx="176" cy="92" r="5" fill="#8e2c33" opacity=".8"/>
+  </svg>`,
+  kanzashi:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <g transform="rotate(-24 100 55)">
+      <rect x="40" y="52" width="120" height="5" rx="2.5" fill="#c8a24d"/>
+      <g fill="#e8a0a8">${[0,72,144,216,288].map(a=>`<path d="M156 54 l14 -6 a8 8 0 0 1 0 12 Z" transform="rotate(${a} 156 54)"/>`).join('')}</g>
+      <circle cx="156" cy="54" r="5" fill="#eccf85"/>
+      <g stroke="#eccf85" stroke-width="2">${[0,1,2].map(i=>`<line x1="${146+i*8}" y1="60" x2="${142+i*8}" y2="88"/>`).join('')}</g>
+      <g fill="#eccf85">${[0,1,2].map(i=>`<circle cx="${142+i*8}" cy="90" r="2.4"/>`).join('')}</g>
+    </g>
+  </svg>`,
+  makie:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <ellipse cx="100" cy="94" rx="34" ry="6" fill="#000" opacity=".5"/>
+    <path d="M58 34 Q100 52 142 34 L136 78 Q100 92 64 78 Z" fill="#1c1410" stroke="#c8a24d" stroke-width="1.6"/>
+    <ellipse cx="100" cy="34" rx="42" ry="10" fill="#2a1d12" stroke="#eccf85" stroke-width="1.6"/>
+    <ellipse cx="100" cy="34" rx="32" ry="7" fill="#8e2c33"/>
+    <g fill="#eccf85"><path d="M84 58 q8 -12 16 0 q-8 12 -16 0Z" opacity=".95"/><circle cx="116" cy="64" r="2.4"/><circle cx="76" cy="70" r="1.8"/>${Array.from({length:12},(_,i)=>`<rect x="${66+(i*61)%70}" y="${52+(i*37)%28}" width="2.4" height="1.4" transform="rotate(${i*31} ${68+(i*61)%70} ${53+(i*37)%28})" opacity=".85"/>`).join('')}</g>
+  </svg>`,
+  kintsugi:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <ellipse cx="100" cy="96" rx="40" ry="6" fill="#000" opacity=".5"/>
+    <path d="M52 40 Q100 58 148 40 L140 86 Q100 100 60 86 Z" fill="#3d4a35" stroke="#2a331f" stroke-width="1.5"/>
+    <ellipse cx="100" cy="40" rx="48" ry="11" fill="#4a5a42" stroke="#2a331f" stroke-width="1.5"/>
+    <ellipse cx="100" cy="40" rx="38" ry="8" fill="#2b3626"/>
+    <path d="M78 46 L88 60 L82 72 L94 88" fill="none" stroke="#eccf85" stroke-width="3" stroke-linecap="round"/>
+    <path d="M124 44 L118 58 L128 68" fill="none" stroke="#eccf85" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="94" cy="88" r="2.2" fill="#eccf85"/>
+  </svg>`,
+  bridge:`<svg viewBox="0 0 200 110" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="200" height="110" fill="#151009"/>
+    <circle cx="164" cy="26" r="13" fill="#eccf85" opacity=".85"/>
+    <path d="M0 74 Q100 42 200 74 L200 84 Q100 52 0 84 Z" fill="#c9bda4"/>
+    <rect y="84" width="200" height="26" fill="#232f4b"/>
+    <g stroke="#c9bda4" stroke-width="2.6">${[30,65,100,135,170].map(x=>`<line x1="${x}" y1="${74-Math.round(15*Math.sin(Math.PI*x/200))}" x2="${x}" y2="${86-Math.round(15*Math.sin(Math.PI*x/200))}"/>`).join('')}</g>
+    <g fill="#eccf85"><circle cx="100" cy="52" r="3.6"/><rect x="98.6" y="55" width="2.8" height="10"/></g>
+    <path d="M92 96 q8 -6 16 0" stroke="#8fa6c4" stroke-width="1.4" fill="none"/>
+    <path d="M60 98 q8 -6 16 0 M124 98 q8 -6 16 0" stroke="#8fa6c4" stroke-width="1.2" fill="none" opacity=".7"/>
+  </svg>`
+};
+
+/* small ornament icons for the result card */
+const KZ = {
+  silver:`<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="rotate(-18 60 40)"><rect x="18" y="38" width="82" height="3.4" rx="1.7" fill="#c9cdd6"/><circle cx="98" cy="40" r="6" fill="none" stroke="#c9cdd6" stroke-width="2.4"/></g></svg>`,
+  comb:`<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="M24 34 Q60 14 96 34 L96 42 L24 42 Z" fill="#a5641f"/><g stroke="#a5641f" stroke-width="3">${Array.from({length:10},(_,i)=>`<line x1="${28+i*7.2}" y1="42" x2="${28+i*7.2}" y2="62"/>`).join('')}</g><circle cx="46" cy="30" r="2" fill="#eccf85"/><circle cx="72" cy="28" r="2" fill="#eccf85"/></svg>`,
+  obidome:`<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line x1="6" y1="40" x2="114" y2="40" stroke="#8e2c33" stroke-width="7"/><rect x="42" y="24" width="36" height="32" rx="7" fill="#1c1410" stroke="#c8a24d" stroke-width="2"/><path d="M52 44 q8 -12 16 0 q-8 10 -16 0Z" fill="#eccf85"/><circle cx="70" cy="34" r="1.8" fill="#eccf85"/></svg>`,
+  bira:`<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="rotate(-14 60 40)"><rect x="22" y="26" width="76" height="3.4" rx="1.7" fill="#eccf85"/><circle cx="94" cy="28" r="7" fill="none" stroke="#eccf85" stroke-width="2.2"/><g stroke="#eccf85" stroke-width="1.8">${[0,1,2,3,4].map(i=>`<line x1="${66+i*7}" y1="30" x2="${62+i*7}" y2="${56+(i%2)*6}"/>`).join('')}</g><g fill="#eccf85">${[0,1,2,3,4].map(i=>`<rect x="${60+i*7}" y="${56+(i%2)*6}" width="4" height="7" rx="1"/>`).join('')}</g></g></svg>`,
+  all:`<svg viewBox="0 0 120 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="rotate(-24 60 46)"><rect x="20" y="44" width="70" height="3" rx="1.5" fill="#c9cdd6"/></g><g transform="rotate(-8 60 40)"><rect x="26" y="36" width="74" height="3" rx="1.5" fill="#eccf85"/><circle cx="96" cy="37" r="5.4" fill="none" stroke="#eccf85" stroke-width="2"/></g><path d="M34 58 Q58 44 82 58 L82 63 L34 63 Z" fill="#a5641f"/><g stroke="#a5641f" stroke-width="2.4">${Array.from({length:7},(_,i)=>`<line x1="${38+i*6.8}" y1="63" x2="${38+i*6.8}" y2="74"/>`).join('')}</g></svg>`
+};
+</script>
+<script>
+/* ================= bilingual content ================= */
+const QUESTIONS = [
+  {
+    scene:{en:"QUESTION 1 · YOUR FIRST MORNING",ja:"第一問・はじめての朝"},
+    text:{en:"You wake in Tokyo before the city does. Where do your feet carry you?",ja:"東京で、街より早く目が覚めた。足はどこへ向かう？"},
+    opts:[
+      {t:{en:"<b>Nihonbashi bridge at dawn</b> — stone lions, empty air, the whole country's roads once began here.",
+          ja:"<b>夜明けの日本橋へ</b>——静まり返った石の獅子。かつて全国の道はここから始まった。"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"Nihonbashi is Japan's kilometer zero",ja:"日本橋は日本の「キロメートル・ゼロ」"},
+             p:{en:"Since 1603, all five great highways of Edo began at this bridge — road distances across Japan are still measured from a marker at its center. The current stone bridge (1911) survived earthquake and war, and Takashimaya's Nihonbashi store was the first department store building ever named an Important Cultural Property.",
+                ja:"1603年以来、江戸五街道はすべてこの橋から始まりました。全国への道路距離は、今も橋の中央の「日本国道路元標」から測られています。現在の石橋（1911年）は震災と戦災を生き延び、高島屋日本橋店は百貨店建築として初めて重要文化財に指定されました。"}}},
+      {t:{en:"<b>The depachika food halls</b> — a museum you can taste, glass cases like jewelry.",
+          ja:"<b>デパ地下へ</b>——味わえる美術館、宝石箱のようなショーケース。"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"The depachika is a world of its own",ja:"デパ地下は、ひとつの宇宙"},
+             p:{en:"Japan's department-store basement food halls are a uniquely Japanese institution — thousands of products, impeccably wrapped, served by staff who treat a ¥300 mochi with the same care as a ¥30,000 box of confections. Takashimaya Nihonbashi's basement stocks items from artisan producers whose shops you won't find anywhere else.",
+                ja:"日本のデパ地下は世界でも類を見ない空間です。数千の商品が完璧に包まれ、300円の餅も3万円の菓子箱と同じ丁寧さで扱われます。日本橋高島屋の地下には、他では手に入らない職人の品が並んでいます。"}}},
+      {t:{en:"<b>A backstreet atelier</b>, sliding door half-open, someone already at work.",
+          ja:"<b>路地裏の工房へ</b>——半分開いた引き戸の奥で、誰かがもう手を動かしている。"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"The artisan's day begins before yours",ja:"職人の一日は、あなたより早く始まる"},
+             p:{en:"Many traditional craftspeople — lacquer artists, printmakers, textile dyers — begin work at first light, when humidity and temperature are most stable for their materials. Nihonbashi's surrounding streets still shelter small ateliers passed down through generations; some accept visitors who ask politely.",
+                ja:"漆師、摺師、染め師など多くの職人は、素材にとって湿度と温度が最も安定した夜明けとともに仕事を始めます。日本橋界隈の路地には、代々受け継がれてきた小さな工房が今も残り、丁寧に声をかければ見学を受け入れてくれる場所もあります。"}}},
+      {t:{en:"<b>The morning market</b> — banter with vendors, tea in a paper cup.",
+          ja:"<b>朝市へ</b>——売り子との掛け合い、紙コップのお茶。"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"Shitamachi energy: the warmth of the low city",ja:"下町気質——「低い街」の温かさ"},
+             p:{en:"Shitamachi — literally 'low city' — was Edo's merchant and artisan quarter, known for its frank, generous, community spirit. Nihonbashi was its commercial heart. That culture of easy banter with strangers is still alive in the area's older food markets and covered shotengai shopping streets.",
+                ja:"「下町」——文字どおり「低い街」——は江戸の職人・商人の町で、率直で温かい共同体の気風で知られていました。日本橋はその商業の中心地でした。見知らぬ人と気さくに話す文化は、今も古い食市場や商店街に息づいています。"}}}
+    ],
+    lit:0
+  },
+  {
+    scene:{en:"QUESTION 2 · THE PATTERN YOU WEAR",ja:"第二問・身にまとう文様"},
+    text:{en:"A kimono maker lays four bolts of cloth before you. Patterns are worn wishes — which do you reach for?",ja:"呉服屋が四反の布を広げた。文様は「身にまとう願い」——どれに手が伸びる？"},
+    swatch:true,
+    opts:[
+      {t:{en:"<b>青海波 Seigaiha</b> — endless calm waves",ja:"<b>青海波</b>——どこまでも続く、穏やかな波"},
+       ax:{S:1,I:1},pat:['seigaiha','#8fa6c4','#232f4b'],
+       fact:{h:{en:"Seigaiha: wishing for calm seas ahead",ja:"青海波——前途に穏やかな海を"},
+             p:{en:"Seigaiha — 'blue-sea wave' — is one of Japan's oldest patterns, appearing on court costumes from the 8th century. Each overlapping arc represents a wave, and together they express the wish for a peaceful, untroubled life stretching as far as the eye can see. It's also the namesake of a court dance performed at important ceremonies.",
+                ja:"「青海波」は8世紀の宮廷装束にも見られる、日本最古の文様のひとつ。重なり合う弧はそれぞれ一つの波を表し、どこまでも続く穏やかな人生への願いを込めています。同名の雅楽の舞は、今も重要な式典で奉納されます。"}}},
+      {t:{en:"<b>麻の葉 Asanoha</b> — hemp leaf, swift growth & protection",ja:"<b>麻の葉</b>——まっすぐ育つ麻、成長と魔除け"},
+       ax:{D:1,I:1},pat:['asanoha','#c9bda4','#3d4a35'],
+       fact:{h:{en:"Asanoha: the pattern sewn into children's clothes",ja:"麻の葉——子どもの産着に縫い込まれた文様"},
+             p:{en:"Hemp (asa) grows straight, fast, and strong — so asanoha was traditionally embroidered into babies' clothing as a prayer for healthy, swift growth. The six-pointed star shape is formed by overlapping rhombuses, creating an endlessly repeating geometry that also symbolises protection from evil.",
+                ja:"麻はまっすぐ、早く、たくましく育ちます。だから麻の葉文様は古くから赤ちゃんの産着に施され、健やかな成長への祈りが込められてきました。六角形の星型は菱形が重なって生まれ、その絶え間ない繰り返しが魔除けの意味も持ちます。"}}},
+      {t:{en:"<b>亀甲 Kikkō</b> — tortoise-shell hexagons, long life",ja:"<b>亀甲</b>——亀の甲羅の六角形、長寿の印"},
+       ax:{S:1,H:1},pat:['kikko','#c8a24d','#33261a'],
+       fact:{h:{en:"Kikkō: ten thousand years in six sides",ja:"亀甲——六角形に宿る一万年"},
+             p:{en:"The tortoise is said to live ten thousand years in Japanese lore, making its shell pattern the ultimate symbol of longevity. Kikkō appears on samurai armour, temple ceilings, and Nishijin brocade obi. The hexagon is also nature's most efficient tiling — bees know it, and so did Edo's weavers.",
+                ja:"日本の伝説では亀は一万年生きるとされ、甲羅の文様は長寿の最上の象徴です。亀甲は武士の鎧、寺の天井、西陣織の帯に登場します。六角形は自然界で最も効率的な敷き詰め形——蜜蜂も知っている真理を、江戸の織り手も熟知していました。"}}},
+      {t:{en:"<b>市松 Ichimatsu</b> — bold checkers, unbroken prosperity",ja:"<b>市松</b>——大胆な格子、途切れぬ繁栄"},
+       ax:{D:1,H:1},pat:['ichimatsu','#8e2c33','#f2e7d2'],
+       fact:{h:{en:"Ichimatsu: the kabuki actor who launched a fashion craze",ja:"市松——流行を作った歌舞伎役者"},
+             p:{en:"The pattern is named after Sanogawa Ichimatsu, an 18th-century kabuki actor whose white-and-indigo checked hakama caused an immediate sensation. Edo had influencers; they just wore silk. The checkerboard tiles have no end — so the pattern also carries a wish for unbroken prosperity through generations.",
+                ja:"この文様の名は18世紀の歌舞伎役者・佐野川市松に由来します。彼の白と藍の格子柄の袴が一世を風靡したのです。江戸にもインフルエンサーがいました——ただ絹を纏っていたのです。格子に終わりはなく、子々孫々まで繁栄が続く願いも込められています。"}}}
+    ],
+    lit:1
+  },
+  {
+    scene:{en:"QUESTION 3 · IN THE PRINTMAKER'S STUDIO",ja:"第三問・摺師の工房で"},
+    text:{en:"A woodblock printmaker grants you one question. You ask:",ja:"浮世絵の摺師が、ひとつだけ質問を許してくれた。あなたが尋ねるのは："},
+    opts:[
+      {t:{en:"\u201CHow many years until your hands simply <b>know</b>?\u201D",ja:"「手が勝手に<b>覚える</b>まで、何年かかりましたか」"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"The body knows what the mind forgets",ja:"体が知っていることを、頭は忘れる"},
+             p:{en:"Master printers say it takes at least ten years before the hands can feel the correct pressure without conscious thought — adjusting for humidity, paper thickness, and ink viscosity in a single motion. This embodied knowledge, called 'te no kioku' (hand memory), cannot be written down or transferred any other way.",
+                ja:"名人の摺師は、意識せずして正しい力加減を感じられるようになるまで少なくとも十年かかると言います——湿度、紙の厚み、墨の粘度を一つの動作で調整する。「手の記憶」と呼ばれるこの身体知は、書き留めることも、他の方法で伝えることもできません。"}}},
+      {t:{en:"\u201CShow me the <b>boldest pigment</b> you own.\u201D",ja:"「いちばん<b>大胆な顔料</b>を見せてください」"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"Beni-e: the shocking red that cost a fortune",ja:"紅絵——一財産を要した衝撃の赤"},
+             p:{en:"The most prized pigment in Edo printing was beni — safflower red — extracted from thousands of dried petals to produce just a small jar of dye. A beni-e print (safflower-red picture) commanded ten times the price of a standard print. The shogunate eventually banned it as too extravagant, which only made collectors want it more.",
+                ja:"江戸摺りで最も貴重な顔料は「紅」——数千枚の紅花の花びらから僅かな染料しか採れません。「紅絵」は通常の版画の十倍の値がつくこともありました。幕府はその贅沢さを理由にやがて禁止しましたが、それがかえってコレクターの欲望を高めました。"}}},
+      {t:{en:"\u201CWho carved these blocks <b>before you</b>?\u201D",ja:"「この版木は、<b>あなたの前は</b>誰が彫ったのですか」"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"The block outlives the carver",ja:"版木は、彫師より長く生きる"},
+             p:{en:"A well-made cherry-wood block can produce thousands of prints over decades. It is common for a block to have been carved by a master, passed to an apprentice, and now in the hands of a third-generation printer — each generation adding slight wear that connoisseurs can read like a fingerprint. The block is not a tool; it is a collaborator across time.",
+                ja:"上質な桜の版木は、数十年にわたって数千枚の版画を生み出せます。師匠が彫り、弟子に伝わり、今は三代目の摺師の手にある——各世代が刻む微かな摩耗を、目利きは指紋のように読み取ります。版木は道具ではなく、時を超えた共同制作者です。"}}},
+      {t:{en:"\u201CMay I <b>pull one print</b> myself?\u201D",ja:"「一枚、<b>摺らせて</b>もらえますか」"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"The baren: the most important tool you've never heard of",ja:"バレン——あなたが知らない、最も重要な道具"},
+             p:{en:"The baren is a flat pad used to press paper against the inked block. A professional baren is a coiled bamboo-sheath rope wrapped in a bamboo leaf, and making one is itself a craft requiring years to master. Printers say they can feel the texture of the block through the baren — it is an extension of the hand, not just a tool.",
+                ja:"バレンは、墨を塗った版木に紙を押しつけるための平らな道具です。職人用のバレンは竹の皮を螺旋状に巻き竹の葉で包んだもので、それを作ること自体が習得に年月を要する技術です。摺師はバレンを通して版木の質感を感じると言います——ただの道具ではなく、手の延長なのです。"}}}
+    ],
+    lit:1
+  },
+  {
+    scene:{en:"QUESTION 4 · ONE THING TO CARRY HOME",ja:"第四問・持ち帰るひとつ"},
+    text:{en:"Your suitcase has room for exactly one treasure:",ja:"スーツケースに残された空きは、宝物ひとつ分："},
+    opts:[
+      {t:{en:"An <b>indigo-dyed tenugui</b> cloth — humble, useful, beautiful.",ja:"<b>藍染の手ぬぐい</b>——慎ましく、役に立ち、美しい。"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"Tenugui: the cloth that does everything",ja:"手ぬぐい——何にでも使える布"},
+             p:{en:"A tenugui is a thin cotton rectangle — originally a hand towel — that Edo people used as headscarf, sweatband, wrapping cloth, gift wrap, and wall hanging. Indigo (ai) dyeing has been practised in Japan for over 1,500 years; the dye also has natural antibacterial properties. A good tenugui, used daily, becomes softer and more beautiful over years.",
+                ja:"手ぬぐいは薄い木綿の長方形の布——もとは手拭き——で、江戸の人々は頭巾、鉢巻き、風呂敷、包装紙、壁掛けとして使いました。藍染は日本で1500年以上の歴史を持ち、天然の抗菌効果もあります。良い手ぬぐいは毎日使うほど、年々柔らかく美しくなります。"}}},
+      {t:{en:"A <b>hand-carved ornamental comb</b>, warm as amber.",ja:"琥珀のように温かい、<b>手彫りの飾り櫛</b>。"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"Tsuge-gushi: the comb that takes three months to make",ja:"柘植の櫛——三ヶ月かけて作られる一本"},
+             p:{en:"The finest traditional combs are carved from tsuge (Japanese box tree), a dense slow-growing wood that takes sixty or more years to reach usable thickness. After carving, the comb is polished with magnolia leaves, dried persimmon skin, and finally human hair — each step burnishing the wood to a warm, almost amber glow. One master carver may make fewer than a hundred in a year.",
+                ja:"最上の伝統的な櫛は、使えるまでの厚みに育つのに六十年以上かかる緻密な木材、柘植（つげ）から彫り出されます。彫った後は朴の葉、干し柿の皮、そして人の髪で磨かれ、温かな琥珀色の艶が生まれます。名人の彫師でも、一年に百本も作れないことがあります。"}}},
+      {t:{en:"A <b>lacquer sake cup</b> with gold maki-e sprinkled inside.",ja:"内側に金の蒔絵が散る、<b>漆の盃</b>。"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"Maki-e: pictures sprinkled in gold",ja:"蒔絵——金で蒔く絵"},
+             p:{en:"Maki-e means 'sprinkled picture' — the artist paints a design in wet lacquer, then dusts it with powdered gold, silver, or platinum. The technique was developed over a thousand years ago and reached its peak in the Edo period, when wealthy merchants commissioned writing boxes and sake sets to rival the imperial household's treasures.",
+                ja:"蒔絵とは「蒔いた絵」——湿った漆で模様を描き、金・銀・白金の粉を蒔きます。この技法は千年以上前に生まれ、江戸時代に全盛を迎えました。裕福な商人たちが宮廷の宝物に匹敵する硯箱や盃を発注したのです。"}}},
+      {t:{en:"A <b>washi-paper spinning top</b> from a toy shop older than your country's constitution.",ja:"あなたの国の憲法より古い玩具店の、<b>和紙の独楽</b>。"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"Edo's toy shops: the world's first concept stores",ja:"江戸の玩具屋——世界初のコンセプトストア"},
+             p:{en:"Several toy and craft shops in the Nihonbashi area have operated continuously since the Edo period — some for over 250 years. Washi (Japanese paper) is made from the inner bark of the kozo plant and is far stronger than it looks; a washi spinning top can last decades. These shops are living archives of play.",
+                ja:"日本橋界隈には江戸時代から続く玩具・工芸品の店が今もあり、創業250年を超えるものもあります。和紙は楮（こうぞ）の内皮から作られ、見た目より遥かに丈夫。和紙の独楽は何十年も持ちます。こうした店は、遊びの生きた記録です。"}}}
+    ],
+    lit:2
+  },
+  {
+    scene:{en:"QUESTION 5 · AT THE COUNTER",ja:"第五問・カウンターで"},
+    text:{en:"The chef sets down a dish he has clearly perfected over decades. You…",ja:"料理人が、何十年もかけて完成させた一皿を静かに置いた。あなたは……"},
+    opts:[
+      {t:{en:"Pause, look, then taste <b>in silence</b> — let the work speak.",ja:"一呼吸おいて眺め、<b>黙って</b>味わう——仕事に語らせる。"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"Ma: the art of the meaningful pause",ja:"「間」——意味のある沈黙の技法"},
+             p:{en:"Ma (間) — the Japanese concept of meaningful negative space — applies to time as much as to physical space. A pause before tasting, a beat of silence after a compliment, the moment between a door sliding open and stepping through: these intervals are not empty but full of attention. Mastering ma is one of the most Japanese things a visitor can do.",
+                ja:"「間」——有意味な空白という日本の概念——は物理的な空間だけでなく、時間にも適用されます。味わう前の一呼吸、褒め言葉の後の一拍の沈黙、引き戸が開いてから踏み込むまでの瞬間。これらの間は空虚ではなく、注意で満たされています。間を体得することは、旅人にできる最も「日本的」なことのひとつです。"}}},
+      {t:{en:"Ask what <b>inspired tonight's</b> composition.",ja:"「<b>今夜の一皿の着想</b>は？」と尋ねる。"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"Kisetsukan: the Japanese art of tasting the season",ja:"季節感——季節を「味わう」日本の芸術"},
+             p:{en:"Japanese cuisine is governed by kisetsukan — 'feeling of the season' — an obligation to use only what is at its peak right now. A chef inspired by tonight's dish is likely drawing on something that appeared at the market that morning. Menus at traditional restaurants can change daily; asking about the inspiration is the question that opens the conversation.",
+                ja:"日本料理は「季節感」に支配されています——今まさに旬のものだけを使う義務です。今夜の一皿の着想を聞けば、おそらく今朝の市場に現れた何かが答えとして返ってきます。料亭のメニューは日々変わることもあり、着想を尋ねることが会話を開く問いになります。"}}},
+      {t:{en:"Notice the vessel first — <b>\u201CIs this Kutani ware?\u201D</b>",ja:"まず器に目が行く——<b>「これは九谷焼ですか？」</b>"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"In Japanese cuisine, the plate is part of the dish",ja:"日本料理では、器も料理のうち"},
+             p:{en:"Japanese chefs choose their vessels as deliberately as their ingredients — the roughness of a Bizen-yaki bowl against delicate sashimi, the deep indigo of an Imari plate under white tofu, the weight of a Kutani cup in the hand. Noticing and naming the pottery is one of the highest compliments you can pay, and often leads to the chef bringing out pieces they rarely show.",
+                ja:"日本の料理人は食材と同じくらい意図的に器を選びます——繊細な刺し身に当てる備前焼の荒い肌、白い豆腐を引き立てる伊万里の深い藍、手の中の九谷焼の重さ。器に気づき名前を言うことは最上の賛辞のひとつで、しばしば料理人がめったに見せない器を持ち出すきっかけになります。"}}},
+      {t:{en:"Beam, say <b>\u201CItadakimasu!\u201D</b>, and dive in with open joy.",ja:"顔をほころばせ<b>「いただきます！」</b>と、勢いよく。"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"Itadakimasu: the ceremony in three syllables",ja:"いただきます——三音節の儀式"},
+             p:{en:"Said before every meal, itadakimasu means 'I humbly receive' — gratitude aimed at the cook, the farmer, and the life of the ingredients themselves. The matching phrase at the end, gochisōsama deshita ('it was a feast'), closes the ritual. Both are used even when eating alone. And yes: slurping noodles is a compliment, not rudeness.",
+                ja:"食事の前の「いただきます」は「謹んで頂戴します」——作り手、生産者、そして食材の命への感謝です。食後の「ごちそうさまでした」がその儀式を締めくくります。どちらもひとりで食べるときも使われます。そして、麺をすするのはマナー違反ではなく——美味しさの表現です。"}}}
+    ],
+    lit:3
+  },
+  {
+    scene:{en:"QUESTION 6 · THE THANK-YOU GIFT",ja:"第六問・お礼の贈り物"},
+    text:{en:"A friend in Tokyo has hosted you for days. Your thank-you is…",ja:"東京の友人が、何日も泊めてくれた。あなたのお礼は……"},
+    opts:[
+      {t:{en:"Something <b>small and perfectly wrapped</b> — the furoshiki cloth is part of the gift.",ja:"<b>小さくて、完璧に包まれた</b>もの——風呂敷も贈り物の一部。"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"Furoshiki: the wrap that becomes a second gift",ja:"風呂敷——包みが二つ目の贈り物になる"},
+             p:{en:"Furoshiki — square wrapping cloths — have been reused in Japan for over a thousand years. A beautiful furoshiki is expected to be returned or kept, making it a gift within a gift. The cloth communicates care even before the recipient sees what's inside. Today's artisan furoshiki makers in Nihonbashi produce designs that blend traditional patterns with contemporary aesthetics.",
+                ja:"風呂敷は日本で千年以上使い回されてきた四角い布。美しい風呂敷は返すか手元に置くことが期待されており、贈り物の中の贈り物です。中身を見る前から、布が心遣いを伝えます。日本橋の現代の風呂敷作家は、伝統的な文様と現代の美意識を融合させた作品を生み出しています。"}}},
+      {t:{en:"A <b>striking craft piece</b> that will stop guests mid-sentence.",ja:"客人の会話が止まるほど<b>目を引く工芸品</b>。"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"Meikō: the craft object that becomes a conversation",ja:"名工——会話になる工芸品"},
+             p:{en:"The best craft gifts in Japan are chosen to provoke a question — 'Where is this from? Who made it?' That story then belongs to the recipient. Nihonbashi's craft floors stock pieces from designated Living National Treasures (Ningen Kokuho) whose work is, quite literally, considered part of Japan's cultural heritage.",
+                ja:"日本で最上の工芸品の贈り物は、問いを呼び起こすために選ばれます——「これはどこから来たの？誰が作ったの？」その物語はやがて受け取った人のものになります。日本橋の工芸フロアには、人間国宝の作品も並び、文字どおり日本の文化遺産の一部とされています。"}}},
+      {t:{en:"Sweets from a <b>300-year-old wagashi shop</b> — lineage you can taste.",ja:"創業三百年の<b>和菓子</b>——味わえる系譜。"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"Wagashi: sweets that contain a whole season",ja:"和菓子——一粒に季節を閉じ込める"},
+             p:{en:"Wagashi are Japanese confections made from plant-based ingredients — bean paste, rice flour, agar — shaped and coloured to reflect the current season. A spring wagashi might be shaped like a cherry blossom just starting to open; an autumn one, a russet maple leaf. Eating one is meant to feel like tasting the season itself. Nihonbashi has wagashi shops that have been making the same recipes since the Edo period.",
+                ja:"和菓子は小豆、米粉、寒天などの植物性素材から作られ、その季節を映すように形と色が決まります。春の和菓子は咲き始めの桜の形、秋には朱色に染まった紅葉。一粒食べれば、季節そのものを味わっているようです。日本橋には江戸時代から同じ製法で作り続ける和菓子店があります。"}}},
+      {t:{en:"An experience: <b>\u201CTonight, I cook for you.\u201D</b>",ja:"体験を：<b>「今夜は私が作ります」</b>。"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"The gift of time is the most Japanese gift of all",ja:"時間の贈り物——最も日本らしい贈り物"},
+             p:{en:"In a culture where craftsmanship is inseparable from time invested, the gift of personal effort carries deep meaning. Home cooking for a guest — especially if you've taken the trouble to learn one Japanese technique or use ingredients from a Japanese grocery — signals respect and attentiveness that no purchased item can match. The gesture is the message.",
+                ja:"職人の技と費やされた時間が切り離せない文化において、個人の手間という贈り物は深い意味を持ちます。ゲストのために料理する——特に日本の技法を学んだり日本食材を使う手間をかけるなら——その心意気は、どんな購入品も敵いません。その行為が、メッセージそのものです。"}}}
+    ],
+    lit:3
+  },
+  {
+    scene:{en:"QUESTION 7 · THE LAST RAINY AFTERNOON",ja:"第七問・最後の雨の午後"},
+    text:{en:"Rain on your final day. You spend it…",ja:"最終日に雨。あなたの過ごし方は……"},
+    opts:[
+      {t:{en:"Alone with <b>one painting</b> for a full hour.",ja:"<b>一枚の絵</b>と、まるまる一時間ふたりきり。"},
+       ax:{S:1,I:1},
+       fact:{h:{en:"How to look at a Japanese painting",ja:"日本画の前に立つということ"},
+             p:{en:"Traditional Japanese paintings — ink wash, screen paintings, hanging scrolls — reward slowness. The empty space (ma) is as deliberate as the brushwork; the unpainted area is not absence but potential. Spend ten minutes with one scroll and you will notice things no photograph could capture: the texture of the silk ground, the speed of each brushstroke, the faint fragrance of old lacquer.",
+                ja:"水墨画、屏風絵、掛け軸——伝統的な日本画は、ゆっくり見る人に報います。余白（間）は筆致と同じくらい意図的なもの。描かれていない部分は欠如ではなく、可能性です。一本の掛け軸の前に十分間立てば、写真には絶対に映らないものが見えてきます——絹地の質感、各筆跡の速度、古い漆の微かな香り。"}}},
+      {t:{en:"At a workbench, learning <b>kintsugi</b> — mending pottery with gold.",ja:"作業台で<b>金継ぎ</b>を習う——金で器を繕う。"},
+       ax:{D:1,I:1},
+       fact:{h:{en:"Kintsugi: the break becomes the design",ja:"金継ぎ——「割れ」が意匠になる"},
+             p:{en:"When pottery cracks, kintsugi artisans rejoin it with lacquer dusted in gold — the repair is displayed, not hidden. It's the Edo-born idea that history, even damage, adds value. A kintsugi workshop is one of the most memorable things a visitor can do: you leave with a repaired object and a philosophy.",
+                ja:"割れた器を漆で接ぎ、金粉を蒔いて仕上げる金継ぎ。修理の跡は隠さず、堂々と見せます。歴史も、傷さえも価値になる——この思想を胸ポケットに入れておけば、日本の美意識の半分は説明がつきます。体験工房を出るとき、あなたは修復した器と、ひとつの哲学を持ち帰ります。"}}},
+      {t:{en:"At a <b>kabuki matinee</b> — thunder, gold, impossible poses.",ja:"<b>歌舞伎の昼公演</b>——雷鳴と金色と、ありえない見得。"},
+       ax:{D:1,H:1},
+       fact:{h:{en:"Kabuki: the theatre that invented excess",ja:"歌舞伎——過剰を発明した演劇"},
+             p:{en:"Kabuki began in the early 17th century as subversive street performance and became Edo's most popular art form. Everything is amplified: costumes weigh up to 30kg, mie poses freeze the actor in impossible positions at peak emotion, and the hanamichi runway brings the performance into the audience. The word kabuki originally meant 'to tilt' — to be extravagantly, defiantly unusual.",
+                ja:"歌舞伎は17世紀初頭、反骨精神あふれる路上演芸として生まれ、江戸最大の娯楽芸術となりました。すべてが増幅されています——衣装は30kgに達することもあり、見得は感情の頂点で役者を不可能な姿勢に凍らせ、花道は演技を客席に引き込みます。「歌舞伎」の語源は「傾く」——華やかに、反骨的に、異様であること。"}}},
+      {t:{en:"In a <b>tea room</b> hidden behind a garden, watching steam rise.",ja:"庭の奥に隠れた<b>茶室</b>で、立ちのぼる湯気を眺める。"},
+       ax:{S:1,H:1},
+       fact:{h:{en:"Chado: the way of tea is a philosophy in four walls",ja:"茶道——四畳半の哲学"},
+             p:{en:"The tea ceremony (chado) is built on four principles articulated by the master Sen no Rikyu in the 16th century: harmony (wa), respect (kei), purity (sei), and tranquillity (jaku). The tea room is deliberately small and low — even a lord must bow to enter — making everyone equal inside. Every gesture, from how you hold the bowl to how you turn it before drinking, is a form of attention paid to another person.",
+                ja:"茶道は16世紀の茶人・千利休が説いた四つの原則に基づいています：和、敬、清、寂。茶室はわざと狭く低く作られており——大名でも頭を下げなければ入れない——内側では誰もが平等です。碗の持ち方から飲む前に回す動作まで、すべての所作は他者への注意の形です。"}}}
+    ],
+    lit:4
+  }
+];
+</script>
+<script>
+/* ================= personas ================= */
+const PERSONAS = {
+  wabi:{
+    kanji:"侘", cat:"美 BIJIN · 静粋",
+    name:{en:"The Quiet Aesthete",ja:"静けさの目利き"},
+    romaji:"WABI NO HITO · 侘びの人",
+    scene:SCENES.snow, kz:KZ.silver,
+    essence:{en:"You are drawn to what whispers: unglazed clay, snow on a stone bridge, the pause before the tea is poured. In Edo terms you carry <i>shibui</i> — beauty with the volume turned down. Crowds miss what you notice.",
+             ja:"あなたが惹かれるのは、囁くような美——釉薬のない土、石橋に積もる雪、茶が注がれる前の間。江戸の言葉で言えば「渋い」、音量を絞った美です。人混みが見落とすものを、あなたは見つける。"},
+    ori:{pat:['seigaiha','#8fa6c4','#232f4b'],
+         cap:{en:"Your fabric: <b>Ōshima-tsumugi 大島紬</b> — silk from Amami Ōshima, dyed dozens of times in iron-rich mud until it glows a deep, quiet black-brown. One bolt can take a year.",
+              ja:"あなたの布：<b>大島紬</b>——奄美大島の絹。鉄分を含む泥で何十回も染め重ね、深く静かな黒褐色に輝きます。一反に一年かかることも。"}},
+    kazari:{en:"A single unadorned silver kanzashi — one line of light in dark hair.",ja:"飾りのない銀の簪を一本——黒髪に走る、一筋の光。"},
+    tip:{en:"Your superpower as a visitor: <b>ma</b> (間), comfort with silence. Linger longer than feels natural — at shrines, counters, gardens. In Japan, staying quietly is a compliment.",
+         ja:"旅人としてのあなたの強みは<b>「間」</b>——沈黙と共にいられること。神社で、カウンターで、庭で、少し長めに佇んでください。日本では、静かに留まることが賛辞になります。"},
+    spots:{en:["<b>Fukutoku Shrine</b> at opening hour, hidden between Nihonbashi towers","<b>Mitsui Memorial Museum</b> — tea ceremony ceramics, rarely crowded","A first-flush sencha at a Nihonbashi <b>tea stand</b>, standing, watching the street"],
+           ja:["高層ビルの谷間にひそむ<b>福徳神社</b>へ、開門の刻に","<b>三井記念美術館</b>——茶の湯の名品、しかも空いている","日本橋の<b>お茶スタンド</b>で立ったまま新茶を一杯、街を眺めながら"]},
+    share:{en:"I drew 侘 The Quiet Aesthete in Ori-Mosaic 織モザイク — my Edo fabric is mud-dyed Ōshima silk. Which card is in your blood?",
+           ja:"織モザイクで「侘・静けさの目利き」を引きました——私の布は泥染めの大島紬。あなたの血に流れる一枚は？"}
+  },
+  edokko:{
+    kanji:"粋", cat:"美 BIJIN · 動粋",
+    name:{en:"The Edokko Spirit",ja:"江戸っ子の魂"},
+    romaji:"IKI NO HITO · 粋の人",
+    scene:SCENES.hanabi, kz:KZ.comb,
+    essence:{en:"Quick-witted, warm, allergic to pretension — you'd have thrived in old Edo's shitamachi, where style meant a flash of pattern <i>inside</i> a plain coat. You make friends in shops you only meant to browse.",
+             ja:"機転が利いて、情に厚く、気取りは大の苦手——あなたは江戸下町でこそ花開く人。粋とは、地味な羽織の<i>裏にだけ</i>柄を忍ばせる美学。冷やかしのつもりの店で、気づけば友達ができている。"},
+    ori:{pat:['komon','#c9bda4','#2b3a56'],
+         cap:{en:"Your fabric: <b>Edo-komon 江戸小紋</b> — patterns stenciled so fine they read as solid color from a distance. Born when samurai were banned from flashy dress and answered with secret intricacy.",
+              ja:"あなたの布：<b>江戸小紋</b>——遠目には無地に見えるほど細かい型染め。派手な装いを禁じられた武士たちが、密かな精緻さで答えた反骨の意匠です。"}},
+    kazari:{en:"A tortoiseshell-style comb, worn at a slight, confident angle.",ja:"鼈甲風の櫛を、少し斜めに、粋な角度で。"},
+    tip:{en:"Your superpower as a visitor: <b>genuine chattiness</b>. Shopkeepers in Ningyōchō remember friendly faces. Learn 'oishii!' (delicious) and 'sugoi!' (amazing) — deploy honestly and often.",
+         ja:"あなたの強みは<b>「気さくさ」</b>。人形町の店主は、感じのいい顔を覚えています。「おいしい！」「すごい！」——正直に、惜しみなく使ってください。"},
+    spots:{en:["<b>Amazake Yokochō</b> in Ningyōchō — taiyaki, sweet sake, old-Edo banter","A folding-fan or <b>tenugui shop</b> — ask the owner to explain the motifs","The river ferry from <b>Nihonbashi pier</b> — Edo's original commuter route"],
+           ja:["人形町・<b>甘酒横丁</b>——たい焼き、甘酒、下町の掛け合い","扇子や<b>手ぬぐいの店</b>——店主に柄の意味を聞いてみて","<b>日本橋の船着場</b>から川のフェリーへ——江戸の通勤路"]},
+    share:{en:"I drew 粋 The Edokko Spirit in Ori-Mosaic 織モザイク — my fabric is secret-patterned Edo-komon. Which card is in your blood?",
+           ja:"織モザイクで「粋・江戸っ子の魂」を引きました——私の布は柄を秘めた江戸小紋。あなたの一枚は？"}
+  },
+  miyabi:{
+    kanji:"雅", cat:"美 BIJIN · 静華",
+    name:{en:"The Miyabi Curator",ja:"雅の蒐集家"},
+    romaji:"MIYABI NO HITO · 雅の人",
+    scene:SCENES.fuji, kz:KZ.obidome,
+    essence:{en:"You believe beauty deserves ceremony. Gold thread, court elegance, a Fuji view framed just so — you collect not objects but <i>provenance</i>, the story of every hand a thing has passed through.",
+             ja:"美には儀式がふさわしい、とあなたは知っている。金糸、王朝の雅、額装されたような富士の眺め——あなたが集めるのは物ではなく<i>「来歴」</i>。その品が通り抜けてきた、すべての手の物語です。"},
+    ori:{pat:['brocade','#c8a24d','#33261a'],
+         cap:{en:"Your fabric: <b>Nishijin-ori 西陣織</b> — Kyoto brocade woven with gold-wrapped thread on looms of astonishing complexity, dressing the imperial court for over 500 years.",
+              ja:"あなたの布：<b>西陣織</b>——金を巻いた糸で織り上げる京の錦。五百年以上、宮廷を装ってきた、驚くべき織機の芸術です。"}},
+    kazari:{en:"A maki-e obidome brooch — lacquer, gold dust, and a story to tell about it.",ja:"蒔絵の帯留——漆と金粉、そして語るべき物語をひとつ。"},
+    tip:{en:"Your superpower as a visitor: <b>reverence</b>. Ask museums and craft floors 'May I photograph?' before shooting, handle nothing without invitation — and artisans will open drawers they show almost no one.",
+         ja:"あなたの強みは<b>「敬意」</b>。撮影の前に「撮ってもいいですか？」、勧められるまで触れない——それだけで、職人はめったに開けない引き出しを開けてくれます。"},
+    spots:{en:["<b>Takashimaya Nihonbashi 6F</b> craft & art floor — the deck's spiritual home","<b>Artizon Museum</b> — where old masters meet the new","A kimono salon fitting — even just to <b>learn how obi are tied</b>"],
+           ja:["<b>日本橋高島屋6階</b>・美術工芸フロア——このデッキの心の故郷","<b>アーティゾン美術館</b>——古典と現代が出会う場所","呉服サロンで<b>帯結びの見学</b>を——知るだけでも価値がある"]},
+    share:{en:"I drew 雅 The Miyabi Curator in Ori-Mosaic 織モザイク — my fabric is gold Nishijin brocade. Which card is in your blood?",
+           ja:"織モザイクで「雅・雅の蒐集家」を引きました——私の布は金糸の西陣織。あなたの一枚は？"}
+  },
+  kabuki:{
+    kanji:"傾", cat:"美 BIJIN · 動華",
+    name:{en:"The Kabukimono Trailblazer",ja:"傾奇者"},
+    romaji:"KABUKIMONO · 傾奇者",
+    scene:SCENES.chochin, kz:KZ.bira,
+    essence:{en:"Named for Edo's original rule-breakers — the 'ones who lean' — who wore outrageous colors down the street and accidentally invented kabuki. You love tradition best when it's doing something it's never done before.",
+             ja:"名の由来は江戸の元祖・型破り「傾奇者」——常識に逆らって派手をまとい、歩くだけで歌舞伎を生んでしまった人々。あなたが伝統を最も愛するのは、それが「まだ誰もやったことのないこと」をしている瞬間です。"},
+    ori:{pat:['yuzen','#e8c877','#5a1f2e'],
+         cap:{en:"Your fabric: <b>Yūzen 友禅</b> — hand-painted resist dyeing that turned kimono into canvases: flowers, cranes, whole landscapes flowing over silk. Maximalism, mastered.",
+              ja:"あなたの布：<b>友禅</b>——絹をキャンバスに変えた手描きの防染。花も鶴も、風景さえも布の上を流れます。極めきったマキシマリズム。"}},
+    kazari:{en:"A bira-bira kanzashi — cascading metal strips that chime when you turn your head.",ja:"びらびら簪——振り向くたびに、金属の短冊が涼やかに鳴る。"},
+    tip:{en:"Your superpower as a visitor: <b>curiosity that says yes</b>. Book the hands-on workshop, scan the AR card, try the craft-tech collab. Artisans light up for people who want to touch the future of their tradition.",
+         ja:"あなたの強みは<b>「イエスと言う好奇心」</b>。体験工房を予約し、ARカードをかざし、工芸×テックの試みへ。伝統の未来に触れたがる人に、職人は目を輝かせます。"},
+    spots:{en:["<b>Kabuki-za</b> in nearby Ginza — single-act tickets exist for first-timers","A <b>craft workshop</b> (indigo dyeing, edo-kiriko glass cutting) — make, don't just buy","Nihonbashi's <b>modern wagashi ateliers</b> — 400-year recipes, brand-new forms"],
+           ja:["銀座・<b>歌舞伎座</b>——初心者には一幕見席という手も","藍染や江戸切子の<b>体験工房</b>——買うだけでなく、作る","日本橋の<b>現代和菓子アトリエ</b>——四百年の製法、まったく新しい形"]},
+    share:{en:"I drew 傾 The Kabukimono Trailblazer in Ori-Mosaic 織モザイク — my fabric is hand-painted Yūzen. Which card is in your blood?",
+           ja:"織モザイクで「傾・傾奇者」を引きました——私の布は手描きの友禅。あなたの一枚は？"}
+  },
+  hiden:{
+    kanji:"数", cat:"秘伝 HIDEN · 極",
+    name:{en:"The Sukisha — Secret Card",ja:"数寄者——隠しカード"},
+    romaji:"SUKISHA · 数寄者",
+    scene:SCENES.gold, kz:KZ.all,
+    essence:{en:"The rarest draw. <i>Sukisha</i> — 'devotee of refined things' — was the old word for those who mastered every register: quiet and splendid, ancient and new. You don't have one aesthetic; you have range. The deck recognizes its own.",
+             ja:"最も稀な一枚。<i>「数寄者」</i>とは、あらゆる領域を修めた風流人の古い呼び名——静と華、古と新のすべてを行き来する人。あなたの美意識はひとつではなく、「振り幅」そのもの。デッキは、同類を見分けるのです。"},
+    ori:{pat:['brocade','#eccf85','#1c1408'],
+         cap:{en:"Your fabric: <b>Kinran 金襴</b> — gold-leaf brocade once reserved for temple vestments and the tea masters wealthy enough to scandalize everyone.",
+              ja:"あなたの布：<b>金襴</b>——かつて寺院の袈裟と、世間を騒がせるほど豊かな茶人だけに許された、金箔の錦。"}},
+    kazari:{en:"All of them. The sukisha's drawer is famously deep.",ja:"すべて。数寄者の引き出しは、深いことで有名です。"},
+    tip:{en:"Your superpower as a visitor: <b>range</b>. Morning silence at the shrine, evening laughter at the counter — you can honor both. Consider becoming what this deck calls a patron: buy one real thing, directly from one real maker.",
+         ja:"あなたの強みは<b>「振り幅」</b>。朝は神社の静寂、夜はカウンターの笑い声——その両方に敬意を払えること。このデッキの言う「パトロン」になるのも一興：本物をひとつ、作り手から直接。"},
+    spots:{en:["Walk the <b>entire old highway starting point</b> — from the kilometer-zero marker to the shrine","<b>Takashimaya 6F</b> and a backstreet atelier, same day — compare the two temples of craft","Return trip: the <b>Amami or Kyoto workshops</b> where the fabrics are actually born"],
+           ja:["<b>道路元標から福徳神社まで</b>、旧街道の起点を歩き通す","<b>高島屋6階</b>と路地裏の工房を同じ日に——工芸の二つの聖地を見比べる","再訪の旅へ：布が生まれる<b>奄美や京都の工房</b>まで"]},
+    share:{en:"I drew the SECRET CARD — 数寄者 The Sukisha — in Ori-Mosaic 織モザイク. Fewer than 1 in 10 draws find it. Which card is in your blood?",
+           ja:"織モザイクで隠しカード「数寄者」を引き当てました——10人に1人も引けない一枚。あなたの血に流れるのは？"}
+  }
+};
+
+/* ================= compendium ================= */
+const COMPENDIUM = [
+  {k:"景",art:ART.ukiyoe,t:{en:"Ukiyo-e woodblock printing",ja:"浮世絵木版画"},
+   p:{en:"Edo's pop art. Publisher, artist, carver, printer — four masters per image, pressed by hand with a bamboo baren. Hiroshige's Nihonbashi prints were the Google Street View of 1830s Japan.",
+      ja:"江戸のポップアート。版元・絵師・彫師・摺師——一図に四人の名匠、竹皮のバレンで一枚ずつ手摺り。広重の日本橋の連作は、1830年代の「ストリートビュー」でした。"}},
+  {k:"織",art:ART.loom,t:{en:"Nishijin-ori 西陣織",ja:"西陣織"},
+   p:{en:"Kyoto's gold-thread brocade, woven for the imperial court for five centuries. A single obi can involve thousands of warp threads and weeks at the loom.",
+      ja:"五世紀にわたり宮廷を装ってきた、京の金糸の錦。一本の帯に数千の経糸と、数週間の織りが費やされることもあります。"}},
+  {k:"織",art:ART.tsumugi,t:{en:"Ōshima-tsumugi 大島紬",ja:"大島紬"},
+   p:{en:"Silk from Amami Ōshima dyed in iron-rich mud up to eighty times, producing a black with astonishing depth. Often counted among the world's great textiles.",
+      ja:"奄美大島の絹を鉄分豊かな泥田で八十回近く染め、底知れぬ深さの黒を生む織物。世界に誇る織物のひとつに数えられます。"}},
+  {k:"縫",art:ART.dye,t:{en:"Edo-komon & Yūzen dyeing",ja:"江戸小紋と友禅"},
+   p:{en:"Two answers to one question — how to decorate silk. Komon hides patterns at stencil-dot scale; yūzen paints entire landscapes in resist-dye. Restraint and exuberance, both perfected.",
+      ja:"「絹をどう飾るか」へのふたつの答え。小紋は型紙の点の細かさに柄を隠し、友禅は防染で風景を描き切る。抑制と奔放、どちらも極致。"}},
+  {k:"飾",art:ART.kanzashi,t:{en:"Kanzashi & bekkō work 簪・鼈甲",ja:"簪と鼈甲細工"},
+   p:{en:"Hair ornaments as engineering: chiming bira-bira strips, silk tsumami petals folded with tweezers, and warm amber-toned combs (today crafted with protected-species-safe materials).",
+      ja:"工学としての髪飾り。涼やかに鳴るびらびら、ピンセットで折るつまみ細工の絹の花びら、琥珀色の温かい櫛（現在は保護種に配慮した素材で作られます）。"}},
+  {k:"飾",art:ART.makie,t:{en:"Maki-e lacquer 蒔絵",ja:"蒔絵"},
+   p:{en:"'Sprinkled pictures' — gold and silver dust scattered onto wet urushi lacquer. The technique behind Japan's most treasured writing boxes, and the gold flecks on this very table.",
+      ja:"文字どおり「蒔く絵」——濡れた漆に金銀の粉を蒔く技法。日本で最も尊ばれる硯箱を生み、この盤上に散る金箔の正体でもあります。"}},
+  {k:"秘",art:ART.kintsugi,t:{en:"Kintsugi 金継ぎ",ja:"金継ぎ"},
+   p:{en:"Broken pottery rejoined with gold-dusted lacquer, the repair worn proudly. The philosophy hiding inside the souvenir: history adds value.",
+      ja:"割れた器を金蒔きの漆で接ぎ、修理の跡を誇らしく見せる。お土産の中に隠れた哲学：歴史は価値を足す。"}},
+  {k:"景",art:ART.bridge,t:{en:"Nihonbashi 日本橋",ja:"日本橋"},
+   p:{en:"Kilometer zero of Japan since 1603. Five highways began here; distances are still measured from the bridge's center plaque. The neighborhood remains Tokyo's densest cluster of centuries-old shops.",
+      ja:"1603年以来の日本のキロメートル・ゼロ。五街道がここに始まり、距離は今も橋の中央の元標から。界隈は今なお、東京で最も老舗が密集する街です。"}}
+];
+</script>
+<script>
+/* ================= state & flow (dual-language) ================= */
+let qi=0, score={S:0,D:0,I:0,H:0};
+let currentPersona=null, currentQ=null, currentChoice=null;
+
+const JPNUM=['第一問','第二問','第三問','第四問','第五問','第六問','第七問'];
+
+/* renders {ja,en} as Japanese primary + English beneath */
+const dual = o => `${o.ja}<span class="en-sub">${o.en}</span>`;
+
+/* per-answer reactions so each choice gets its own acknowledgment */
+const REACT={
+  SI:{ja:"……渋い選択。",en:"…a quietly refined choice."},
+  DH:{ja:"……華のある選択。",en:"…a bold, radiant choice."},
+  SH:{ja:"……雅な選択。",en:"…an elegant, storied choice."},
+  DI:{ja:"……粋な選択。",en:"…a spirited, unpretentious choice."}
+};
+const rxKey = ax => (ax.S?'S':'D')+(ax.I?'I':'H');
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderStatic(){
+  document.getElementById('i-title').innerHTML =
+    T.introTitle.ja + `<span class="en-sub">${T.introTitle.en.replace('<br>',' ')}</span>`;
+  document.getElementById('i-sub').innerHTML = dual(T.introSub);
+  document.getElementById('i-start').textContent = "最初の一枚を引く · Draw your first card";
+  document.getElementById('i-comp').textContent = "工芸図鑑を見る · Browse the craft compendium";
+  document.getElementById('i-note').textContent = "約2分 · A two-minute journey through Nihonbashi";
+  document.getElementById('factnext').textContent = "次へ · Continue";
+  document.getElementById('c-title').innerHTML = dual(T.compTitle);
+  document.getElementById('c-lede').innerHTML = dual(T.compLede);
+  document.getElementById('c-back').textContent = "← 最初に戻る · Back to the beginning";
+}
+
+/* ---------- quiz ---------- */
+function startQuiz(){
+  qi=0; score={S:0,D:0,I:0,H:0}; currentPersona=null; currentQ=null; currentChoice=null;
+  document.querySelectorAll('.layer-seal').forEach(el=>el.classList.remove('lit'));
+  renderQuestion();
+  show('quiz');
+}
+
+function renderQuestion(){
+  const q=QUESTIONS[qi];
+  document.getElementById('qcount').textContent = JPNUM[qi]+' · QUESTION '+(qi+1)+' / '+QUESTIONS.length;
+  /* strip the numbering prefixes; qcount already shows them */
+  const jaTheme=q.scene.ja.split('・').pop();
+  const enTheme=q.scene.en.split('·').pop().trim();
+  document.getElementById('qscene').textContent = jaTheme+' · '+enTheme;
+  document.getElementById('qtext').innerHTML =
+    q.text.ja + `<span class="en-sub">${q.text.en}</span>`;
+  const box=document.getElementById('opts');
+  box.innerHTML='';
+  q.opts.forEach((o,idx)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    let sw='';
+    if(q.swatch && o.pat){
+      sw=`<span class="swatch" aria-hidden="true">${PATTERNS[o.pat[0]]('sw'+qi+'-'+idx,o.pat[1],o.pat[2])}</span>`;
+    }
+    b.innerHTML=sw+`<span>${o.t.ja}<span class="en-sub">${o.t.en}</span></span>`;
+    b.onclick=()=>answer(o,q);
+    box.appendChild(b);
+  });
+}
+
+function answer(o,q){
+  for(const k in o.ax) score[k]+=o.ax[k];
+  const seal=document.querySelector('.layer-seal[data-l="'+q.lit+'"]');
+  if(seal) seal.classList.add('lit');
+  currentQ=q; currentChoice=o;
+  renderFact(q,o);
+  show('factscreen');
+}
+
+function renderFact(q,o){
+  /* each option has its own fact — so every choice leads to a distinct page */
+  const fact = o.fact;
+  const rx=REACT[rxKey(o.ax)];
+  document.getElementById('factchoice').innerHTML =
+    `<span class="lbl">あなたの選択 · YOUR CHOICE</span>
+     ${o.t.ja}<span class="en-sub">${o.t.en}</span>
+     <span class="rx">${rx.ja} <span style="color:var(--washi-dim);font-family:var(--body);font-size:.9em">${rx.en}</span></span>`;
+  document.getElementById('facttitle').innerHTML = dual(fact.h);
+  document.getElementById('factbody').innerHTML = dual(fact.p);
+}
+
+function nextQuestion(){
+  qi++;
+  if(qi<QUESTIONS.length){ renderQuestion(); show('quiz'); }
+  else finish();
+}
+
+/* ---------- result ---------- */
+function pickPersona(){
+  /* Secret card: near-perfectly balanced answers (rarity-gated), or a rare lucky draw.
+     With 7 questions each axis splits 4–3 at best, so |diff|<=1 is maximal balance. */
+  const balanced = Math.abs(score.S-score.D)<=1 && Math.abs(score.I-score.H)<=1;
+  if((balanced && Math.random()<0.2) || Math.random()<0.03) return PERSONAS.hiden;
+  const sei = score.S>=score.D;
+  const iki = score.I>=score.H;
+  if(sei&&iki) return PERSONAS.wabi;
+  if(!sei&&iki) return PERSONAS.edokko;
+  if(sei&&!iki) return PERSONAS.miyabi;
+  return PERSONAS.kabuki;
+}
+
+function finish(){
+  currentPersona=pickPersona();
+  renderResult(currentPersona);
+  show('result');
+}
+
+function renderResult(p){
+  const isH = p===PERSONAS.hiden;
+  const r=document.getElementById('result');
+  r.innerHTML=`
+    ${isH?`<div class="hiden-flare">✦ 秘伝 —— 隠しカードを引き当てました · YOU FOUND THE SECRET CARD ✦</div>`:''}
+    <div class="result-card ${isH?'hiden':''}">
+      <div class="rc-banner"><span class="cat">${p.cat}</span><span class="seal">${p.kanji}</span></div>
+      <div class="rc-scene">${p.scene}</div>
+      <div class="rc-name">
+        <div class="big-kanji">${p.kanji}</div>
+        <h2>${p.name.ja}</h2>
+        <div class="name-en">${p.name.en}</div>
+        <div class="romaji">${p.romaji}</div>
+      </div>
+      <p class="rc-essence">${dual(p.essence)}</p>
+      <div class="rc-ori">
+        <div class="band">${PATTERNS[p.ori.pat[0]]('res-band',p.ori.pat[1],p.ori.pat[2])}</div>
+        <div class="cap">${dual(p.ori.cap)}</div>
+      </div>
+      <div class="rc-rows">
+        <div class="rc-row"><h4>飾・あなたの装身具 · YOUR ORNAMENT</h4>
+          <div class="rc-orn"><span class="kz">${p.kz}</span><p>${dual(p.kazari)}</p></div>
+        </div>
+        <div class="rc-row"><h4>心得・旅人としてのあなたへ · AS A GUEST IN JAPAN</h4><p>${dual(p.tip)}</p></div>
+        <div class="rc-row"><h4>日本橋・訪ねてほしい場所 · SEEK OUT</h4>
+          <ul>${p.spots.ja.map((s,i)=>`<li>${s}<span class="en-sub">${p.spots.en[i]}</span></li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-gold" onclick="downloadCard(this)">カードを画像で保存 · Save as image</button>
+      <button class="btn-outline" onclick="shareResult()">共有 · Share</button>
+      <button class="btn-outline" onclick="startQuiz()">もう一度引く · Draw again</button>
+      <button class="btn-outline" onclick="show('compendium')">図鑑 · Compendium</button>
+    </div>
+    <p class="share-toast" id="toast">コピーしました · Copied ✦</p>
+  `;
+}
+
+/* ================= JPEG share card =================
+   Composes a 1080x1350 bilingual card on <canvas>. The finished image is
+   shown in an overlay (long-press / right-click to save) because some
+   embedded previews block direct downloads; a download button is also
+   provided for normal hosted use. */
+
+const FAB = { /* short fabric names keyed by persona kanji */
+  "侘":"大島紬 · Ōshima-tsumugi",
+  "粋":"江戸小紋 · Edo-komon",
+  "雅":"西陣織 · Nishijin-ori",
+  "傾":"友禅 · Yūzen",
+  "数":"金襴 · Kinran"
+};
+
+function svgToImage(svgString, w, h){
+  return new Promise((resolve,reject)=>{
+    /* Firefox needs explicit width/height on the root svg to rasterize */
+    const sized=svgString.replace('<svg ', `<svg width="${w}" height="${h}" `);
+    const url=URL.createObjectURL(new Blob([sized],{type:'image/svg+xml'}));
+    const img=new Image();
+    img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};
+    img.onerror=e=>{URL.revokeObjectURL(url);reject(e)};
+    img.src=url;
+  });
+}
+
+async function composeCard(p){
+  try{
+    await Promise.all([
+      document.fonts.load('700 170px "Shippori Mincho"'),
+      document.fonts.load('700 54px "Shippori Mincho"'),
+      document.fonts.load('500 30px "Zen Kaku Gothic New"')
+    ]);
+    await document.fonts.ready;
+  }catch(e){/* fall back to system fonts */}
+
+  const W=1080,H=1350;
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const x=cv.getContext('2d');
+  const isH = p===PERSONAS.hiden;
+  const DISPLAY='"Shippori Mincho","Hiragino Mincho ProN",serif';
+  const BODY='"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif';
+
+  /* lacquer ground + gold flecks */
+  x.fillStyle='#12100e'; x.fillRect(0,0,W,H);
+  const g=x.createRadialGradient(W/2,0,0,W/2,0,H*.8);
+  g.addColorStop(0,'rgba(200,162,77,.08)'); g.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle=g; x.fillRect(0,0,W,H);
+  for(let i=0;i<70;i++){
+    x.save();
+    x.translate((i*167)%W,(i*211)%H);
+    x.rotate(i*0.7);
+    x.fillStyle=i%3?'#c8a24d':'#eccf85';
+    x.globalAlpha=.25+((i*37)%50)/100;
+    x.fillRect(0,0,3+(i%4)*2,2+(i%3));
+    x.restore();
+  }
+  x.globalAlpha=1;
+
+  /* frame */
+  x.strokeStyle=isH?'#eccf85':'#c8a24d'; x.lineWidth=3;
+  x.strokeRect(30,30,W-60,H-60);
+  x.strokeStyle='rgba(200,162,77,.35)'; x.lineWidth=1;
+  x.strokeRect(44,44,W-88,H-88);
+
+  const setSpacing=v=>{try{x.letterSpacing=v}catch(e){}};
+
+  /* banner */
+  x.fillStyle='#eccf85'; x.textAlign='center';
+  x.font='600 30px '+DISPLAY; setSpacing('12px');
+  x.fillText(p.cat, W/2, 104);
+  setSpacing('0px');
+
+  /* secret ribbon */
+  let sceneY=140;
+  if(isH){
+    x.font='600 26px '+DISPLAY; setSpacing('8px');
+    x.fillStyle='#eccf85';
+    x.fillText('✦ 秘伝 · SECRET CARD ✦', W/2, 146);
+    setSpacing('0px');
+    sceneY=170;
+  }
+
+  /* scene */
+  const sceneImg=await svgToImage(p.scene, 900, 473);
+  x.strokeStyle='#8a6f38'; x.lineWidth=2;
+  x.strokeRect(88,sceneY-2,904,477);
+  x.drawImage(sceneImg,90,sceneY,900,473);
+
+  /* big kanji with glow */
+  const ky=sceneY+473+172;
+  if(isH){
+    const halo=x.createRadialGradient(W/2,ky-60,10,W/2,ky-60,220);
+    halo.addColorStop(0,'rgba(236,207,133,.35)'); halo.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=halo; x.fillRect(W/2-230,ky-290,460,460);
+  }
+  x.shadowColor='rgba(200,162,77,.45)'; x.shadowBlur=30;
+  x.fillStyle='#eccf85'; x.font='700 168px '+DISPLAY;
+  x.fillText(p.kanji, W/2, ky);
+  x.shadowBlur=0;
+
+  /* name (JA) + name (EN) */
+  x.fillStyle='#f2e7d2'; x.font='700 52px '+DISPLAY;
+  x.fillText(p.name.ja, W/2, ky+82);
+  x.fillStyle='#c9bda4'; x.font='500 28px '+DISPLAY; setSpacing('4px');
+  x.fillText(p.name.en, W/2, ky+126);
+  setSpacing('0px');
+
+  /* fabric band */
+  const bandY=ky+162;
+  const bandImg=await svgToImage(PATTERNS[p.ori.pat[0]]('jpg-band',p.ori.pat[1],p.ori.pat[2]),900,88);
+  x.strokeStyle='#8a6f38'; x.strokeRect(88,bandY-2,904,92);
+  x.drawImage(bandImg,90,bandY,900,88);
+  x.fillStyle='#eccf85'; x.font='600 33px '+DISPLAY;
+  x.fillText('織 '+FAB[p.kanji], W/2, bandY+142);
+
+  /* tagline (both languages) + brand */
+  x.fillStyle='#c9bda4'; x.font='500 29px '+BODY;
+  x.fillText('あなたの血に流れる一枚は？', W/2, bandY+198);
+  x.font='400 24px '+BODY;
+  x.fillText('Which card is in your blood?', W/2, bandY+236);
+  x.fillStyle='#c8a24d'; x.font='600 25px '+DISPLAY; setSpacing('10px');
+  x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-68);
+  setSpacing('0px');
+
+  return cv;
+}
+
+function showCardOverlay(dataUrl, filename){
+  const old=document.getElementById('cardOverlay');
+  if(old) old.remove();
+  const o=document.createElement('div');
+  o.className='overlay'; o.id='cardOverlay';
+  o.innerHTML=`
+    <img src="${dataUrl}" alt="Your Ori-Mosaic result card あなたの結果カード">
+    <p class="cap">画像を長押し（スマホ）または右クリックで保存できます<span class="en-sub">Long-press (mobile) or right-click the image to save it</span></p>
+    <div class="row">
+      <a class="btn-gold" href="${dataUrl}" download="${filename}">ダウンロード · Download</a>
+      <button class="btn-outline" onclick="document.getElementById('cardOverlay').remove()">閉じる · Close</button>
+    </div>`;
+  document.body.appendChild(o);
+}
+
+async function downloadCard(btn){
+  if(!currentPersona) return;
+  const label=btn?btn.textContent:null;
+  if(btn){btn.disabled=true;btn.textContent='カードを仕立てています… · Composing…';}
+  try{
+    const cv=await composeCard(currentPersona);
+    showCardOverlay(cv.toDataURL('image/jpeg',0.92),'ori-mosaic-'+currentPersona.kanji+'.jpg');
+  }catch(e){
+    alert('画像の生成に失敗しました。もう一度お試しください。\nCould not create the image — please try again.');
+  }
+  if(btn){btn.disabled=false;btn.textContent=label;}
+}
+
+async function shareResult(){
+  if(!currentPersona) return;
+  const msg=currentPersona.share.ja+"\n"+currentPersona.share.en;
+  /* try sharing with the JPEG attached (mobile share sheets) */
+  if(navigator.canShare){
+    try{
+      const cv=await composeCard(currentPersona);
+      const blob=await new Promise(res=>cv.toBlob(res,'image/jpeg',0.92));
+      const file=new File([blob],'ori-mosaic-'+currentPersona.kanji+'.jpg',{type:'image/jpeg'});
+      if(navigator.canShare({files:[file]})){
+        await navigator.share({files:[file],text:msg,title:'Ori-Mosaic 織モザイク'});
+        return;
+      }
+    }catch(e){ if(e && e.name==='AbortError') return; }
+  }
+  /* text-only native share */
+  if(navigator.share){
+    try{ await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg,url:location.href}); return; }
+    catch(e){ if(e && e.name==='AbortError') return; }
+  }
+  /* clipboard fallback */
+  try{
+    await navigator.clipboard.writeText(msg+"\n\n"+location.href);
+    const t=document.getElementById('toast'); t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2600);
+  }catch(e){
+    prompt('結果をコピーしてください · Copy your result:',msg+"\n\n"+location.href);
+  }
+}
+
+/* ---------- compendium ---------- */
+function renderCompendium(){
+  document.getElementById('compgrid').innerHTML=COMPENDIUM.map(c=>`
+    <div class="comp-card">
+      <div class="comp-art">${c.art}</div>
+      <div class="comp-body">
+        <div class="ck"><span>${c.k}</span>${c.t.ja}</div>
+        <p>${dual(c.p)}</p>
+      </div>
+    </div>`).join('');
+}
+
+/* ---------- boot ---------- */
+renderStatic();
+renderCompendium();
+</script>
+</body>
+</html>
