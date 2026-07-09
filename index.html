@@ -38,8 +38,9 @@ body{
   background:var(--lacquer);
   color:var(--washi);
   font-family:var(--body);
-  line-height:1.7;
+  line-height:1.8;
   overflow-x:hidden;
+  font-size:17.5px;
 }
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -60,13 +61,13 @@ body::before{
 
 /* dual-language rendering: Japanese primary, English beneath */
 .en-sub{
-  display:block;color:var(--washi-dim);font-size:.85em;font-family:var(--body);
-  font-weight:400;letter-spacing:.02em;margin-top:3px;line-height:1.55;
+  display:block;color:#b0a48e;font-size:.84em;font-family:var(--body);
+  font-weight:400;letter-spacing:.02em;margin-top:4px;line-height:1.6;
 }
-#intro h1 .en-sub{font-size:17px;letter-spacing:.05em;margin-top:12px}
-.q-text .en-sub{font-size:15.5px;margin-top:8px}
+#intro h1 .en-sub{font-size:18px;letter-spacing:.05em;margin-top:14px}
+.q-text .en-sub{font-size:16px;margin-top:10px}
 .fact .en-sub{margin-top:10px}
-.name-en{font-family:var(--display);color:var(--washi-dim);font-size:16px;letter-spacing:.12em;margin-top:6px}
+.name-en{font-family:var(--display);color:#b0a48e;font-size:17px;letter-spacing:.12em;margin-top:6px}
 
 /* "your choice" echo on the fact page */
 .choice-echo{
@@ -77,7 +78,7 @@ body::before{
   font-family:var(--display);font-size:11px;letter-spacing:.26em;color:var(--gold);
   display:block;margin-bottom:6px;
 }
-.choice-echo .rx{color:var(--gold-hi);font-family:var(--display);display:block;margin-top:8px}
+.choice-echo .rx{color:var(--gold-hi);font-family:var(--display);display:block;margin-top:10px;font-size:15px}
 
 /* saved-card overlay (long-press / right-click to save) */
 .overlay{
@@ -89,7 +90,7 @@ body::before{
   max-width:min(86vw,420px);max-height:62vh;border:1px solid var(--gold);
   border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);
 }
-.overlay .cap{color:var(--washi-dim);font-size:13px;text-align:center;max-width:44ch}
+.overlay .cap{color:#c0b498;font-size:14.5px;text-align:center;max-width:48ch;line-height:1.75}
 .overlay .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .overlay .btn-gold{margin-top:0;text-decoration:none;display:inline-block}
 
@@ -129,7 +130,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;color:var(--washi)}
 }
 .jp-line{font-family:var(--display);color:var(--gold);letter-spacing:.28em;font-size:13px;margin-bottom:10px}
 #intro h1{font-size:clamp(28px,6.2vw,44px);letter-spacing:.05em;line-height:1.3}
-#intro .sub{margin:14px auto 6px;max-width:48ch;color:var(--washi-dim);font-size:15px}
+#intro .sub{margin:14px auto 6px;max-width:48ch;color:#c0b498;font-size:16px;line-height:1.85}
 .hand-preview{display:flex;justify-content:center;gap:0;margin:34px 0 10px;height:132px;align-items:flex-end}
 .mini-card{
   width:76px;height:112px;border-radius:7px;border:1px solid var(--gold-dim);
@@ -177,18 +178,18 @@ button{font-family:var(--body);cursor:pointer;border:none}
   background:radial-gradient(circle,#2c2113,#181209);
   box-shadow:0 0 10px rgba(200,162,77,.35);
 }
-.q-scene{font-size:13px;color:var(--gold);letter-spacing:.22em;font-family:var(--display);margin-bottom:8px}
-.q-text{font-size:clamp(19px,4.6vw,24px);line-height:1.55;margin-bottom:22px;font-family:var(--display);font-weight:600}
-.opts{display:grid;gap:12px}
+.q-scene{font-size:13px;color:var(--gold);letter-spacing:.22em;font-family:var(--display);margin-bottom:10px}
+.q-text{font-size:clamp(20px,4.8vw,26px);line-height:1.6;margin-bottom:26px;font-family:var(--display);font-weight:600}
+.opts{display:grid;gap:14px}
 .opt{
-  text-align:left;padding:16px 18px;border-radius:8px;
+  text-align:left;padding:18px 20px;border-radius:8px;
   border:1px solid #3c3223;background:linear-gradient(160deg,#1e1913,#161210);
-  color:var(--washi);font-size:15px;line-height:1.6;
+  color:var(--washi);font-size:16px;line-height:1.7;
   display:flex;align-items:center;gap:14px;
   transition:border-color .15s, transform .15s, background .15s;
 }
 .opt:hover{border-color:var(--gold);transform:translateX(4px);background:#231c13}
-.opt .swatch{flex:0 0 54px;height:54px;border-radius:6px;border:1px solid var(--gold-dim);overflow:hidden}
+.opt .swatch{flex:0 0 56px;height:56px;border-radius:6px;border:1px solid var(--gold-dim);overflow:hidden}
 .opt .swatch svg{display:block;width:100%;height:100%}
 .opt b{font-family:var(--display);color:var(--gold-hi);font-weight:600}
 
@@ -204,8 +205,8 @@ button{font-family:var(--body);cursor:pointer;border:none}
   background:linear-gradient(140deg,var(--gold-hi),var(--gold));
   padding:2px 10px;border-radius:3px;letter-spacing:.24em;margin-bottom:10px;
 }
-.fact h3{font-size:16.5px;margin-bottom:6px;color:var(--gold-hi)}
-.fact p{font-size:14px;color:var(--washi-dim)}
+.fact h3{font-size:19px;margin-bottom:10px;color:var(--gold-hi)}
+.fact p{font-size:16px;color:#c0b498;line-height:1.9}
 .fact .btn-gold{margin-top:18px;padding:11px 30px;font-size:14px}
 
 /* ---------- result ---------- */
@@ -235,21 +236,21 @@ button{font-family:var(--body);cursor:pointer;border:none}
 }
 .rc-name h2{font-size:24px;margin-top:8px;letter-spacing:.04em}
 .rc-name .romaji{color:var(--washi-dim);font-size:13px;letter-spacing:.24em;margin-top:2px}
-.rc-essence{max-width:52ch;margin:12px auto 0;padding:0 22px;text-align:center;color:var(--washi-dim);font-size:14.5px}
+.rc-essence{max-width:54ch;margin:14px auto 0;padding:0 22px;text-align:center;color:var(--washi-dim);font-size:16px;line-height:1.9}
 .rc-ori{margin:22px 18px 0;border:1px solid var(--gold-dim);border-radius:8px;overflow:hidden}
 .rc-ori .band{height:56px}
 .rc-ori .band svg{display:block;width:100%;height:100%}
-.rc-ori .cap{padding:10px 14px;font-size:13px;color:var(--washi-dim);background:#191410}
+.rc-ori .cap{padding:14px 18px;font-size:15.5px;color:#bfb29a;background:#1a1510;line-height:1.85}
 .rc-ori .cap b{color:var(--gold-hi);font-family:var(--display);font-weight:600}
 .rc-rows{padding:18px}
 .rc-row{
   border:1px solid #352c1e;border-radius:8px;padding:14px 16px;margin-bottom:12px;
   background:linear-gradient(160deg,#1d1710,#15110c);
 }
-.rc-row h4{font-family:var(--display);color:var(--gold);font-size:13px;letter-spacing:.26em;margin-bottom:8px;font-weight:600}
-.rc-row p,.rc-row li{font-size:14px;color:var(--washi)}
+.rc-row h4{font-family:var(--display);color:var(--gold);font-size:13.5px;letter-spacing:.24em;margin-bottom:10px;font-weight:600}
+.rc-row p,.rc-row li{font-size:16px;color:var(--washi);line-height:1.85}
 .rc-row ul{list-style:none}
-.rc-row li{padding:5px 0 5px 20px;position:relative;color:var(--washi-dim)}
+.rc-row li{padding:7px 0 7px 22px;position:relative;color:var(--washi-dim);line-height:1.75}
 .rc-row li::before{content:"◆";position:absolute;left:0;top:6px;font-size:9px;color:var(--gold)}
 .rc-row li b{color:var(--washi)}
 .rc-orn{display:flex;align-items:center;gap:16px}
@@ -287,7 +288,7 @@ button{font-family:var(--body);cursor:pointer;border:none}
   display:inline-block;border:1px solid var(--gold-dim);border-radius:50%;
   width:26px;height:26px;text-align:center;line-height:24px;font-size:13px;margin-right:8px;
 }
-.comp-card p{font-size:13.5px;color:var(--washi-dim)}
+.comp-card p{font-size:15.5px;color:#b8ab96;line-height:1.85}
 .back-row{margin-top:26px;text-align:center}
 
 footer{
@@ -365,7 +366,7 @@ footer{
 
 </main>
 
-<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」</footer>
+<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v7 · 2026-07-09</span></footer>
 <script>
 /* ================= gold flecks ================= */
 (function(){
@@ -774,7 +775,7 @@ const PERSONAS = {
     kanji:"侘", cat:"美 BIJIN · 静粋",
     name:{en:"The Quiet Aesthete",ja:"静けさの目利き"},
     romaji:"WABI NO HITO · 侘びの人",
-    scene:SCENES.snow, kz:KZ.silver,
+    scene:SCENES.snow, sceneKey:'snow', kz:KZ.silver,
     essence:{en:"You are drawn to what whispers: unglazed clay, snow on a stone bridge, the pause before the tea is poured. In Edo terms you carry <i>shibui</i> — beauty with the volume turned down. Crowds miss what you notice.",
              ja:"あなたが惹かれるのは、囁くような美——釉薬のない土、石橋に積もる雪、茶が注がれる前の間。江戸の言葉で言えば「渋い」、音量を絞った美です。人混みが見落とすものを、あなたは見つける。"},
     ori:{pat:['seigaiha','#8fa6c4','#232f4b'],
@@ -792,7 +793,7 @@ const PERSONAS = {
     kanji:"粋", cat:"美 BIJIN · 動粋",
     name:{en:"The Edokko Spirit",ja:"江戸っ子の魂"},
     romaji:"IKI NO HITO · 粋の人",
-    scene:SCENES.hanabi, kz:KZ.comb,
+    scene:SCENES.hanabi, sceneKey:'hanabi', kz:KZ.comb,
     essence:{en:"Quick-witted, warm, allergic to pretension — you'd have thrived in old Edo's shitamachi, where style meant a flash of pattern <i>inside</i> a plain coat. You make friends in shops you only meant to browse.",
              ja:"機転が利いて、情に厚く、気取りは大の苦手——あなたは江戸下町でこそ花開く人。粋とは、地味な羽織の<i>裏にだけ</i>柄を忍ばせる美学。冷やかしのつもりの店で、気づけば友達ができている。"},
     ori:{pat:['komon','#c9bda4','#2b3a56'],
@@ -810,7 +811,7 @@ const PERSONAS = {
     kanji:"雅", cat:"美 BIJIN · 静華",
     name:{en:"The Miyabi Curator",ja:"雅の蒐集家"},
     romaji:"MIYABI NO HITO · 雅の人",
-    scene:SCENES.fuji, kz:KZ.obidome,
+    scene:SCENES.fuji, sceneKey:'fuji', kz:KZ.obidome,
     essence:{en:"You believe beauty deserves ceremony. Gold thread, court elegance, a Fuji view framed just so — you collect not objects but <i>provenance</i>, the story of every hand a thing has passed through.",
              ja:"美には儀式がふさわしい、とあなたは知っている。金糸、王朝の雅、額装されたような富士の眺め——あなたが集めるのは物ではなく<i>「来歴」</i>。その品が通り抜けてきた、すべての手の物語です。"},
     ori:{pat:['brocade','#c8a24d','#33261a'],
@@ -828,7 +829,7 @@ const PERSONAS = {
     kanji:"傾", cat:"美 BIJIN · 動華",
     name:{en:"The Kabukimono Trailblazer",ja:"傾奇者"},
     romaji:"KABUKIMONO · 傾奇者",
-    scene:SCENES.chochin, kz:KZ.bira,
+    scene:SCENES.chochin, sceneKey:'chochin', kz:KZ.bira,
     essence:{en:"Named for Edo's original rule-breakers — the 'ones who lean' — who wore outrageous colors down the street and accidentally invented kabuki. You love tradition best when it's doing something it's never done before.",
              ja:"名の由来は江戸の元祖・型破り「傾奇者」——常識に逆らって派手をまとい、歩くだけで歌舞伎を生んでしまった人々。あなたが伝統を最も愛するのは、それが「まだ誰もやったことのないこと」をしている瞬間です。"},
     ori:{pat:['yuzen','#e8c877','#5a1f2e'],
@@ -846,7 +847,7 @@ const PERSONAS = {
     kanji:"数", cat:"秘伝 HIDEN · 極",
     name:{en:"The Sukisha — Secret Card",ja:"数寄者——隠しカード"},
     romaji:"SUKISHA · 数寄者",
-    scene:SCENES.gold, kz:KZ.all,
+    scene:SCENES.gold, sceneKey:'gold', kz:KZ.all,
     essence:{en:"The rarest draw. <i>Sukisha</i> — 'devotee of refined things' — was the old word for those who mastered every register: quiet and splendid, ancient and new. You don't have one aesthetic; you have range. The deck recognizes its own.",
              ja:"最も稀な一枚。<i>「数寄者」</i>とは、あらゆる領域を修めた風流人の古い呼び名——静と華、古と新のすべてを行き来する人。あなたの美意識はひとつではなく、「振り幅」そのもの。デッキは、同類を見分けるのです。"},
     ori:{pat:['brocade','#eccf85','#1c1408'],
@@ -894,13 +895,14 @@ const COMPENDIUM = [
 /* ================= state & flow (dual-language) ================= */
 let qi=0, score={S:0,D:0,I:0,H:0};
 let currentPersona=null, currentQ=null, currentChoice=null;
+let cachedCardDataUrl=null; /* cached so Save and Share use same render */
 
 const JPNUM=['第一問','第二問','第三問','第四問','第五問','第六問','第七問'];
 
 /* renders {ja,en} as Japanese primary + English beneath */
 const dual = o => `${o.ja}<span class="en-sub">${o.en}</span>`;
 
-/* per-answer reactions so each choice gets its own acknowledgment */
+/* per-answer reactions */
 const REACT={
   SI:{ja:"……渋い選択。",en:"…a quietly refined choice."},
   DH:{ja:"……華のある選択。",en:"…a bold, radiant choice."},
@@ -930,7 +932,8 @@ function renderStatic(){
 
 /* ---------- quiz ---------- */
 function startQuiz(){
-  qi=0; score={S:0,D:0,I:0,H:0}; currentPersona=null; currentQ=null; currentChoice=null;
+  qi=0; score={S:0,D:0,I:0,H:0};
+  currentPersona=null; currentQ=null; currentChoice=null; cachedCardDataUrl=null;
   document.querySelectorAll('.layer-seal').forEach(el=>el.classList.remove('lit'));
   renderQuestion();
   show('quiz');
@@ -939,7 +942,6 @@ function startQuiz(){
 function renderQuestion(){
   const q=QUESTIONS[qi];
   document.getElementById('qcount').textContent = JPNUM[qi]+' · QUESTION '+(qi+1)+' / '+QUESTIONS.length;
-  /* strip the numbering prefixes; qcount already shows them */
   const jaTheme=q.scene.ja.split('・').pop();
   const enTheme=q.scene.en.split('·').pop().trim();
   document.getElementById('qscene').textContent = jaTheme+' · '+enTheme;
@@ -970,8 +972,7 @@ function answer(o,q){
 }
 
 function renderFact(q,o){
-  /* each option has its own fact — so every choice leads to a distinct page */
-  const fact = o.fact;
+  const fact=o.fact;
   const rx=REACT[rxKey(o.ax)];
   document.getElementById('factchoice').innerHTML =
     `<span class="lbl">あなたの選択 · YOUR CHOICE</span>
@@ -989,12 +990,9 @@ function nextQuestion(){
 
 /* ---------- result ---------- */
 function pickPersona(){
-  /* Secret card: near-perfectly balanced answers (rarity-gated), or a rare lucky draw.
-     With 7 questions each axis splits 4–3 at best, so |diff|<=1 is maximal balance. */
   const balanced = Math.abs(score.S-score.D)<=1 && Math.abs(score.I-score.H)<=1;
   if((balanced && Math.random()<0.2) || Math.random()<0.03) return PERSONAS.hiden;
-  const sei = score.S>=score.D;
-  const iki = score.I>=score.H;
+  const sei = score.S>=score.D, iki = score.I>=score.H;
   if(sei&&iki) return PERSONAS.wabi;
   if(!sei&&iki) return PERSONAS.edokko;
   if(sei&&!iki) return PERSONAS.miyabi;
@@ -1003,6 +1001,7 @@ function pickPersona(){
 
 function finish(){
   currentPersona=pickPersona();
+  cachedCardDataUrl=null; /* reset cache for new result */
   renderResult(currentPersona);
   show('result');
 }
@@ -1037,8 +1036,8 @@ function renderResult(p){
       </div>
     </div>
     <div class="actions">
-      <button class="btn-gold" onclick="downloadCard(this)">カードを画像で保存 · Save as image</button>
-      <button class="btn-outline" onclick="shareResult()">共有 · Share</button>
+      <button class="btn-gold" id="btn-save" onclick="downloadCard(this)">カードを画像で保存 · Save as image</button>
+      <button class="btn-outline" id="btn-share" onclick="shareResult(this)">共有 · Share</button>
       <button class="btn-outline" onclick="startQuiz()">もう一度引く · Draw again</button>
       <button class="btn-outline" onclick="show('compendium')">図鑑 · Compendium</button>
     </div>
@@ -1046,13 +1045,14 @@ function renderResult(p){
   `;
 }
 
-/* ================= JPEG share card =================
-   Composes a 1080x1350 bilingual card on <canvas>. The finished image is
-   shown in an overlay (long-press / right-click to save) because some
-   embedded previews block direct downloads; a download button is also
-   provided for normal hosted use. */
+/* =================================================================
+   JPEG CARD COMPOSER
+   Strategy: draw everything on <canvas> using only canvas 2D APIs —
+   NO SVG-to-Blob (fails in many browsers). Patterns and scenes are
+   re-drawn directly onto the canvas using the same math.
+================================================================= */
 
-const FAB = { /* short fabric names keyed by persona kanji */
+const FAB={
   "侘":"大島紬 · Ōshima-tsumugi",
   "粋":"江戸小紋 · Edo-komon",
   "雅":"西陣織 · Nishijin-ori",
@@ -1060,118 +1060,396 @@ const FAB = { /* short fabric names keyed by persona kanji */
   "数":"金襴 · Kinran"
 };
 
-function svgToImage(svgString, w, h){
-  return new Promise((resolve,reject)=>{
-    /* Firefox needs explicit width/height on the root svg to rasterize */
-    const sized=svgString.replace('<svg ', `<svg width="${w}" height="${h}" `);
-    const url=URL.createObjectURL(new Blob([sized],{type:'image/svg+xml'}));
-    const img=new Image();
-    img.onload=()=>{URL.revokeObjectURL(url);resolve(img)};
-    img.onerror=e=>{URL.revokeObjectURL(url);reject(e)};
-    img.src=url;
-  });
+/* Draw a seigaiha wave pattern directly on canvas ctx */
+function drawPatternOnCanvas(ctx, key, fg, bg, x, y, w, h){
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+  ctx.fillStyle=bg; ctx.fillRect(x,y,w,h);
+  ctx.strokeStyle=fg; ctx.lineWidth=2.4; ctx.fillStyle='rgba(0,0,0,0)';
+  const S=44; /* cell size */
+  if(key==='seigaiha'){
+    for(let row=-1; row<Math.ceil(h/S)+2; row++){
+      for(let col=-1; col<Math.ceil(w/S)+2; col++){
+        const cx2=x+col*S+(row%2)*S/2, cy2=y+row*S/2;
+        [S*.45,S*.3,S*.15].forEach(r=>{
+          ctx.beginPath(); ctx.arc(cx2,cy2+S*.4,r,Math.PI,0); ctx.stroke();
+        });
+      }
+    }
+  } else if(key==='asanoha'){
+    const sz=36;
+    for(let row=-1;row<Math.ceil(h/sz)+2;row++){
+      for(let col=-1;col<Math.ceil(w/sz)+2;col++){
+        const cx2=x+col*sz+(row%2)*sz/2, cy2=y+row*sz*.866;
+        [[0,1],[60,1],[120,1],[180,1],[240,1],[300,1]].forEach(([a])=>{
+          const rad=a*Math.PI/180;
+          ctx.beginPath();
+          ctx.moveTo(cx2,cy2);
+          ctx.lineTo(cx2+Math.cos(rad)*sz*.42,cy2+Math.sin(rad)*sz*.42);
+          ctx.stroke();
+        });
+        ctx.beginPath(); ctx.arc(cx2,cy2,2.4,0,Math.PI*2); ctx.fillStyle=fg; ctx.fill();
+      }
+    }
+  } else if(key==='kikko'){
+    const r=22;
+    for(let row=-1;row<Math.ceil(h/(r*1.73))+2;row++){
+      for(let col=-1;col<Math.ceil(w/(r*2))+2;col++){
+        const cx2=x+col*r*2+(row%2)*r, cy2=y+row*r*1.73;
+        ctx.beginPath();
+        for(let i=0;i<6;i++){
+          const a=i*Math.PI/3-Math.PI/6;
+          i===0?ctx.moveTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r)
+               :ctx.lineTo(cx2+Math.cos(a)*r,cy2+Math.sin(a)*r);
+        }
+        ctx.closePath(); ctx.stroke();
+      }
+    }
+  } else if(key==='ichimatsu'){
+    const sz=40;
+    for(let row=0;row<Math.ceil(h/sz)+2;row++){
+      for(let col=0;col<Math.ceil(w/sz)+2;col++){
+        if((row+col)%2===0){
+          ctx.fillStyle=fg;
+          ctx.fillRect(x+col*sz,y+row*sz,sz,sz);
+        }
+      }
+    }
+  } else if(key==='komon'){
+    for(let row=0;row<Math.ceil(h/14)+2;row++){
+      for(let col=0;col<Math.ceil(w/14)+2;col++){
+        if((row+col)%2===0){
+          ctx.beginPath();
+          ctx.arc(x+col*14+3.5,y+row*14+3.5,1.6,0,Math.PI*2);
+          ctx.fillStyle=fg; ctx.fill();
+        }
+      }
+    }
+  } else if(key==='brocade'){
+    const sz=36;
+    for(let row=-1;row<Math.ceil(h/sz)+2;row++){
+      for(let col=-1;col<Math.ceil(w/sz)+2;col++){
+        const cx2=x+col*sz+sz/2, cy2=y+row*sz+sz/2;
+        ctx.beginPath();
+        ctx.moveTo(cx2,cy2-sz*.44);
+        ctx.lineTo(cx2+sz*.44,cy2);
+        ctx.lineTo(cx2,cy2+sz*.44);
+        ctx.lineTo(cx2-sz*.44,cy2);
+        ctx.closePath(); ctx.stroke();
+        ctx.beginPath(); ctx.arc(cx2,cy2,3,0,Math.PI*2);
+        ctx.fillStyle=fg; ctx.fill();
+      }
+    }
+  } else if(key==='yuzen'){
+    const sz=48;
+    for(let row=-1;row<Math.ceil(h/sz)+2;row++){
+      for(let col=-1;col<Math.ceil(w/sz)+2;col++){
+        const cx2=x+col*sz+sz/2, cy2=y+row*sz+sz/2;
+        ctx.fillStyle=fg;
+        ctx.beginPath(); ctx.ellipse(cx2,cy2-6,5,11,0,0,Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(cx2+6,cy2,11,5,0,0,Math.PI*2);
+        ctx.globalAlpha=.7; ctx.fill(); ctx.globalAlpha=1;
+        ctx.beginPath(); ctx.arc(cx2+sz*.38,cy2+sz*.32,3,0,Math.PI*2); ctx.fill();
+      }
+    }
+  }
+  ctx.restore();
+}
+
+/* Draw a simplified landscape scene directly on canvas */
+function drawSceneOnCanvas(ctx, sceneKey, x, y, w, h){
+  ctx.save();
+  ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+
+  if(sceneKey==='snow'){
+    /* sky gradient */
+    const g=ctx.createLinearGradient(x,y,x,y+h);
+    g.addColorStop(0,'#37415a'); g.addColorStop(1,'#6b7288');
+    ctx.fillStyle=g; ctx.fillRect(x,y,w,h);
+    /* moon */
+    ctx.beginPath(); ctx.arc(x+w*.82,y+h*.22,h*.1,0,Math.PI*2);
+    ctx.fillStyle='rgba(233,226,210,.85)'; ctx.fill();
+    /* bridge arch */
+    ctx.fillStyle='#e8e4da';
+    ctx.beginPath(); ctx.moveTo(x,y+h*.72); ctx.quadraticCurveTo(x+w/2,y+h*.46,x+w,y+h*.72);
+    ctx.lineTo(x+w,y+h*.79); ctx.quadraticCurveTo(x+w/2,y+h*.53,x,y+h*.79); ctx.closePath(); ctx.fill();
+    /* railings */
+    ctx.strokeStyle='#e8e4da'; ctx.lineWidth=3;
+    [.15,.3,.45,.55,.7,.85].forEach(rx=>{
+      const baseY=y+h*.72 - Math.sin(rx*Math.PI)*h*.26;
+      ctx.beginPath(); ctx.moveTo(x+rx*w,baseY); ctx.lineTo(x+rx*w,baseY+h*.08); ctx.stroke();
+    });
+    /* water */
+    ctx.fillStyle='#232c3f'; ctx.fillRect(x,y+h*.79,w,h*.21);
+    /* snowflakes */
+    ctx.fillStyle='rgba(233,226,210,.7)';
+    for(let i=0;i<40;i++){
+      ctx.beginPath();
+      ctx.arc(x+(i*113)%w, y+(i*79)%h, 1+(i%3)*.8, 0, Math.PI*2); ctx.fill();
+    }
+  } else if(sceneKey==='hanabi'){
+    const g=ctx.createLinearGradient(x,y,x,y+h);
+    g.addColorStop(0,'#101527'); g.addColorStop(1,'#233054');
+    ctx.fillStyle=g; ctx.fillRect(x,y,w,h);
+    /* fireworks */
+    [[x+w*.28,y+h*.29,'#e8c877'],[x+w*.7,y+h*.21,'#c96a5a'],[x+w*.51,y+h*.43,'#9db8d9']].forEach(([fx,fy,fc])=>{
+      ctx.strokeStyle=fc; ctx.lineWidth=1.6;
+      for(let i=0;i<12;i++){
+        const a=i*Math.PI/6;
+        ctx.beginPath(); ctx.moveTo(fx,fy);
+        ctx.lineTo(fx+Math.cos(a)*w*.07,fy+Math.sin(a)*w*.07); ctx.stroke();
+      }
+      ctx.beginPath(); ctx.arc(fx,fy,4,0,Math.PI*2); ctx.fillStyle=fc; ctx.fill();
+    });
+    /* river silhouette */
+    ctx.fillStyle='#0c0f1a';
+    ctx.beginPath(); ctx.moveTo(x,y+h*.75); ctx.quadraticCurveTo(x+w/2,y+h*.53,x+w,y+h*.75);
+    ctx.lineTo(x+w,y+h*.82); ctx.quadraticCurveTo(x+w/2,y+h*.6,x,y+h*.82); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='#182241'; ctx.fillRect(x,y+h*.82,w,h*.18);
+    /* lantern reflections */
+    ctx.fillStyle='rgba(232,200,119,.6)';
+    [.08,.23,.38,.58,.75,.9].forEach(rx=>{
+      ctx.fillRect(x+rx*w,y+h*.84,w*.06,h*.02);
+    });
+  } else if(sceneKey==='fuji'){
+    const g=ctx.createLinearGradient(x,y,x,y+h);
+    g.addColorStop(0,'#f0e0bd'); g.addColorStop(1,'#e6c896');
+    ctx.fillStyle=g; ctx.fillRect(x,y,w,h);
+    /* sun */
+    ctx.beginPath(); ctx.arc(x+w*.18,y+h*.25,h*.095,0,Math.PI*2);
+    ctx.fillStyle='#b8433f'; ctx.fill();
+    /* fuji */
+    ctx.fillStyle='#5a6d8f';
+    ctx.beginPath(); ctx.moveTo(x+w*.33,y+h*.71); ctx.lineTo(x+w*.59,y+h*.2); ctx.lineTo(x+w*.85,y+h*.71); ctx.closePath(); ctx.fill();
+    /* snow cap */
+    ctx.fillStyle='#f4efe3';
+    ctx.beginPath(); ctx.moveTo(x+w*.53,y+h*.32); ctx.lineTo(x+w*.59,y+h*.2); ctx.lineTo(x+w*.65,y+h*.32);
+    ctx.lineTo(x+w*.615,y+h*.35); ctx.lineTo(x+w*.59,y+h*.3); ctx.lineTo(x+w*.565,y+h*.35); ctx.closePath(); ctx.fill();
+    /* rooftops */
+    ctx.fillStyle='#2f2a24';
+    [0,.175,.35,.525,.7,.875].forEach((rx,i)=>{
+      const oy=(i%2)*h*.04;
+      ctx.beginPath();
+      ctx.moveTo(x+rx*w,y+h); ctx.lineTo(x+rx*w,y+h*.84-oy);
+      ctx.lineTo(x+(rx+.088)*w,y+h*.76-oy); ctx.lineTo(x+(rx+.175)*w,y+h*.84-oy);
+      ctx.lineTo(x+(rx+.175)*w,y+h); ctx.closePath(); ctx.fill();
+    });
+  } else if(sceneKey==='chochin'){
+    const g=ctx.createLinearGradient(x,y,x,y+h);
+    g.addColorStop(0,'#231226'); g.addColorStop(1,'#3c1e33');
+    ctx.fillStyle=g; ctx.fillRect(x,y,w,h);
+    /* rope */
+    ctx.strokeStyle='#120a14'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(x,y+h*.25); ctx.lineTo(x+w,y+h*.22); ctx.stroke();
+    /* lanterns */
+    [.1,.28,.46,.63,.81,.97].forEach((rx,i)=>{
+      const lx=x+rx*w, ly=y+h*.25, off=(i%2)*h*.03;
+      ctx.strokeStyle='#120a14'; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(lx,ly+h*.06+off); ctx.stroke();
+      ctx.fillStyle='#b8433f';
+      ctx.beginPath(); ctx.ellipse(lx,ly+h*.4+off,w*.04,h*.21,0,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='#d96a57'; ctx.globalAlpha=.6;
+      ctx.beginPath(); ctx.ellipse(lx-w*.01,ly+h*.37+off,w*.014,h*.12,0,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1;
+      /* ribs */
+      ctx.strokeStyle='#7c2320'; ctx.lineWidth=1;
+      [-h*.08,-h*.04,0,h*.04].forEach(dy=>{
+        ctx.beginPath(); ctx.ellipse(lx,ly+h*.4+off+dy,w*.04,h*.02,-0.1,0,Math.PI*2); ctx.stroke();
+      });
+      /* cap */
+      ctx.fillStyle='#e8c877';
+      ctx.fillRect(lx-w*.017,ly+h*.29+off,w*.034,h*.04);
+    });
+    ctx.fillStyle='#160d18'; ctx.fillRect(x,y+h*.84,w,h*.16);
+  } else if(sceneKey==='gold'){
+    const g=ctx.createLinearGradient(x,y,x,y+h);
+    g.addColorStop(0,'#2a2010'); g.addColorStop(1,'#6b5324');
+    ctx.fillStyle=g; ctx.fillRect(x,y,w,h);
+    /* glowing sun */
+    ctx.shadowColor='rgba(236,207,133,.5)'; ctx.shadowBlur=40;
+    ctx.beginPath(); ctx.arc(x+w/2,y+h*.31,h*.14,0,Math.PI*2);
+    ctx.fillStyle='#eccf85'; ctx.fill();
+    ctx.shadowBlur=0;
+    /* gold bridge */
+    ctx.fillStyle='#eccf85';
+    ctx.beginPath(); ctx.moveTo(x,y+h*.75); ctx.quadraticCurveTo(x+w/2,y+h*.52,x+w,y+h*.75);
+    ctx.lineTo(x+w,y+h*.82); ctx.quadraticCurveTo(x+w/2,y+h*.59,x,y+h*.82); ctx.closePath(); ctx.fill();
+    /* railings */
+    ctx.strokeStyle='#eccf85'; ctx.lineWidth=3;
+    [.15,.3,.45,.55,.7,.85].forEach(rx=>{
+      const baseY=y+h*.75 - Math.sin(rx*Math.PI)*h*.23;
+      ctx.beginPath(); ctx.moveTo(x+rx*w,baseY); ctx.lineTo(x+rx*w,baseY+h*.08); ctx.stroke();
+    });
+    ctx.fillStyle='#1c1408'; ctx.fillRect(x,y+h*.82,w,h*.18);
+    /* gold flecks */
+    ctx.fillStyle='#eccf85';
+    for(let i=0;i<24;i++){
+      ctx.save(); ctx.globalAlpha=.7;
+      ctx.translate(x+(i*71)%w,y+(i*53)%h);
+      ctx.rotate(i*.9);
+      ctx.fillRect(0,0,4,2); ctx.restore();
+    }
+  }
+  ctx.restore();
+}
+
+
+/* Convert a data: URL to a Blob without fetch() — works in all browsers */
+function dataURLtoBlob(dataUrl){
+  const [header, data] = dataUrl.split(',');
+  const mime = header.match(/:(.*?);/)[1];
+  const binary = atob(data);
+  const arr = new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++) arr[i]=binary.charCodeAt(i);
+  return new Blob([arr],{type:mime});
 }
 
 async function composeCard(p){
+  /* wait for fonts — with timeout so it never hangs */
   try{
-    await Promise.all([
-      document.fonts.load('700 170px "Shippori Mincho"'),
-      document.fonts.load('700 54px "Shippori Mincho"'),
-      document.fonts.load('500 30px "Zen Kaku Gothic New"')
+    await Promise.race([
+      Promise.all([
+        document.fonts.load('700 160px "Shippori Mincho"'),
+        document.fonts.load('700 50px "Shippori Mincho"'),
+        document.fonts.load('500 28px "Zen Kaku Gothic New"')
+      ]),
+      new Promise(r=>setTimeout(r,2000))
     ]);
-    await document.fonts.ready;
-  }catch(e){/* fall back to system fonts */}
+  }catch(e){}
 
-  const W=1080,H=1350;
+  const W=1080, H=1350;
   const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
   const x=cv.getContext('2d');
   const isH = p===PERSONAS.hiden;
-  const DISPLAY='"Shippori Mincho","Hiragino Mincho ProN",serif';
-  const BODY='"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif';
+  const DISPLAY='"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","MS Mincho",serif';
+  const BODY='"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Meiryo",sans-serif';
 
-  /* lacquer ground + gold flecks */
+  /* ── background ── */
   x.fillStyle='#12100e'; x.fillRect(0,0,W,H);
-  const g=x.createRadialGradient(W/2,0,0,W/2,0,H*.8);
-  g.addColorStop(0,'rgba(200,162,77,.08)'); g.addColorStop(1,'rgba(0,0,0,0)');
-  x.fillStyle=g; x.fillRect(0,0,W,H);
-  for(let i=0;i<70;i++){
+  const bg=x.createRadialGradient(W/2,0,0,W/2,0,H*.85);
+  bg.addColorStop(0,'rgba(200,162,77,.09)'); bg.addColorStop(1,'rgba(0,0,0,0)');
+  x.fillStyle=bg; x.fillRect(0,0,W,H);
+
+  /* gold flecks */
+  for(let i=0;i<65;i++){
     x.save();
-    x.translate((i*167)%W,(i*211)%H);
-    x.rotate(i*0.7);
+    x.translate((i*173)%W,(i*211)%H);
+    x.rotate(i*.72);
     x.fillStyle=i%3?'#c8a24d':'#eccf85';
-    x.globalAlpha=.25+((i*37)%50)/100;
+    x.globalAlpha=.2+((i*37)%50)/160;
     x.fillRect(0,0,3+(i%4)*2,2+(i%3));
     x.restore();
   }
   x.globalAlpha=1;
 
-  /* frame */
-  x.strokeStyle=isH?'#eccf85':'#c8a24d'; x.lineWidth=3;
-  x.strokeRect(30,30,W-60,H-60);
+  /* ── outer + inner frame ── */
+  x.strokeStyle=isH?'#eccf85':'#c8a24d'; x.lineWidth=3.5;
+  roundRect(x,28,28,W-56,H-56,8); x.stroke();
+  x.strokeStyle='rgba(200,162,77,.3)'; x.lineWidth=1;
+  roundRect(x,42,42,W-84,H-84,5); x.stroke();
+
+  const spc=v=>{try{x.letterSpacing=v}catch(e){}};
+
+  /* ── category banner ── */
+  x.fillStyle='rgba(36,28,16,.9)'; x.fillRect(90,52,W-180,52);
   x.strokeStyle='rgba(200,162,77,.35)'; x.lineWidth=1;
-  x.strokeRect(44,44,W-88,H-88);
+  x.strokeRect(90,52,W-180,52);
+  x.fillStyle='#eccf85'; x.textAlign='center'; x.font='600 27px '+DISPLAY; spc('14px');
+  x.fillText(p.cat, W/2, 87); spc('0px');
 
-  const setSpacing=v=>{try{x.letterSpacing=v}catch(e){}};
-
-  /* banner */
-  x.fillStyle='#eccf85'; x.textAlign='center';
-  x.font='600 30px '+DISPLAY; setSpacing('12px');
-  x.fillText(p.cat, W/2, 104);
-  setSpacing('0px');
-
-  /* secret ribbon */
-  let sceneY=140;
+  let sceneY=120;
   if(isH){
-    x.font='600 26px '+DISPLAY; setSpacing('8px');
-    x.fillStyle='#eccf85';
-    x.fillText('✦ 秘伝 · SECRET CARD ✦', W/2, 146);
-    setSpacing('0px');
-    sceneY=170;
+    x.fillStyle='rgba(236,207,133,.15)';
+    x.fillRect(90,110,W-180,36);
+    x.fillStyle='#eccf85'; x.font='500 22px '+DISPLAY; spc('7px');
+    x.fillText('✦  秘伝  ·  SECRET CARD  ✦', W/2, 134); spc('0px');
+    sceneY=154;
   }
 
-  /* scene */
-  const sceneImg=await svgToImage(p.scene, 900, 473);
-  x.strokeStyle='#8a6f38'; x.lineWidth=2;
-  x.strokeRect(88,sceneY-2,904,477);
-  x.drawImage(sceneImg,90,sceneY,900,473);
+  /* ── scene (drawn natively — no SVG blob) ── */
+  const sceneKey=p.sceneKey||'snow';
+  const sW=W-180, sH=Math.round(sW*0.526); /* 900:473 ratio */
+  x.strokeStyle='#8a6f38'; x.lineWidth=1.5;
+  x.strokeRect(89,sceneY-1,sW+2,sH+2);
+  drawSceneOnCanvas(x, sceneKey, 90, sceneY, sW, sH);
 
-  /* big kanji with glow */
-  const ky=sceneY+473+172;
+  /* ── kanji ── */
+  const ky=sceneY+sH+160;
   if(isH){
-    const halo=x.createRadialGradient(W/2,ky-60,10,W/2,ky-60,220);
-    halo.addColorStop(0,'rgba(236,207,133,.35)'); halo.addColorStop(1,'rgba(0,0,0,0)');
-    x.fillStyle=halo; x.fillRect(W/2-230,ky-290,460,460);
+    const halo=x.createRadialGradient(W/2,ky-55,8,W/2,ky-55,210);
+    halo.addColorStop(0,'rgba(236,207,133,.32)'); halo.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=halo; x.fillRect(W/2-220,ky-280,440,440);
   }
-  x.shadowColor='rgba(200,162,77,.45)'; x.shadowBlur=30;
-  x.fillStyle='#eccf85'; x.font='700 168px '+DISPLAY;
-  x.fillText(p.kanji, W/2, ky);
-  x.shadowBlur=0;
+  x.shadowColor='rgba(200,162,77,.5)'; x.shadowBlur=28;
+  x.fillStyle='#eccf85'; x.font='700 160px '+DISPLAY;
+  x.fillText(p.kanji, W/2, ky); x.shadowBlur=0;
 
-  /* name (JA) + name (EN) */
-  x.fillStyle='#f2e7d2'; x.font='700 52px '+DISPLAY;
-  x.fillText(p.name.ja, W/2, ky+82);
-  x.fillStyle='#c9bda4'; x.font='500 28px '+DISPLAY; setSpacing('4px');
-  x.fillText(p.name.en, W/2, ky+126);
-  setSpacing('0px');
+  /* ── name ── */
+  x.fillStyle='#f2e7d2'; x.font='700 50px '+DISPLAY;
+  x.fillText(p.name.ja, W/2, ky+78);
+  x.fillStyle='#c9bda4'; x.font='500 27px '+DISPLAY; spc('3px');
+  x.fillText(p.name.en, W/2, ky+120); spc('0px');
 
-  /* fabric band */
-  const bandY=ky+162;
-  const bandImg=await svgToImage(PATTERNS[p.ori.pat[0]]('jpg-band',p.ori.pat[1],p.ori.pat[2]),900,88);
-  x.strokeStyle='#8a6f38'; x.strokeRect(88,bandY-2,904,92);
-  x.drawImage(bandImg,90,bandY,900,88);
-  x.fillStyle='#eccf85'; x.font='600 33px '+DISPLAY;
-  x.fillText('織 '+FAB[p.kanji], W/2, bandY+142);
+  /* ── fabric band ── */
+  const bandY=ky+152, bandH=82;
+  x.strokeStyle='#8a6f38'; x.lineWidth=1.5;
+  x.strokeRect(89,bandY-1,sW+2,bandH+2);
+  const [patKey,patFg,patBg]=p.ori.pat;
+  drawPatternOnCanvas(x, patKey, patFg, patBg, 90, bandY, sW, bandH);
 
-  /* tagline (both languages) + brand */
-  x.fillStyle='#c9bda4'; x.font='500 29px '+BODY;
-  x.fillText('あなたの血に流れる一枚は？', W/2, bandY+198);
-  x.font='400 24px '+BODY;
-  x.fillText('Which card is in your blood?', W/2, bandY+236);
-  x.fillStyle='#c8a24d'; x.font='600 25px '+DISPLAY; setSpacing('10px');
-  x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-68);
-  setSpacing('0px');
+  x.fillStyle='#eccf85'; x.font='600 31px '+DISPLAY;
+  x.fillText('織  '+FAB[p.kanji], W/2, bandY+bandH+52);
+
+  /* ── taglines ── */
+  x.fillStyle='#c9bda4'; x.font='500 27px '+BODY;
+  x.fillText('あなたの血に流れる一枚は？', W/2, bandY+bandH+103);
+  x.fillStyle='rgba(180,168,148,.8)'; x.font='400 22px '+BODY;
+  x.fillText('Which card is in your blood?', W/2, bandY+bandH+138);
+
+  /* ── brand mark ── */
+  x.fillStyle='rgba(200,162,77,.25)';
+  x.fillRect(0,H-80,W,80);
+  x.fillStyle='#c8a24d'; x.font='600 24px '+DISPLAY; spc('10px');
+  x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-42); spc('0px');
 
   return cv;
+}
+
+/* helper: rounded rectangle path (no native roundRect in older browsers) */
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+
+/* render once, cache the data URL, reuse for both Save and Share */
+async function getCardDataUrl(){
+  if(cachedCardDataUrl) return cachedCardDataUrl;
+  const cv=await composeCard(currentPersona);
+  cachedCardDataUrl=cv.toDataURL('image/jpeg',0.93);
+  return cachedCardDataUrl;
+}
+
+function setBtn(id, text, disabled){
+  const b=document.getElementById(id);
+  if(b){ b.textContent=text; b.disabled=disabled; }
+}
+
+async function downloadCard(btn){
+  if(!currentPersona) return;
+  const orig=btn.textContent;
+  btn.disabled=true; btn.textContent='仕立て中… · Composing…';
+  try{
+    const dataUrl=await getCardDataUrl();
+    showCardOverlay(dataUrl,'ori-mosaic-'+currentPersona.kanji+'.jpg');
+  }catch(e){
+    console.error(e);
+    alert('画像の生成に失敗しました。\nCould not create the image — please try again.');
+  }
+  btn.disabled=false; btn.textContent=orig;
 }
 
 function showCardOverlay(dataUrl, filename){
@@ -1179,57 +1457,63 @@ function showCardOverlay(dataUrl, filename){
   if(old) old.remove();
   const o=document.createElement('div');
   o.className='overlay'; o.id='cardOverlay';
+  /* clicking the backdrop closes it */
+  o.addEventListener('click',e=>{ if(e.target===o) o.remove(); });
   o.innerHTML=`
-    <img src="${dataUrl}" alt="Your Ori-Mosaic result card あなたの結果カード">
-    <p class="cap">画像を長押し（スマホ）または右クリックで保存できます<span class="en-sub">Long-press (mobile) or right-click the image to save it</span></p>
+    <img src="${dataUrl}" alt="あなたのOri-Mosaicカード Your result card"
+         style="cursor:pointer" title="長押し・右クリックで保存 / Long-press or right-click to save">
+    <p class="cap">
+      スマホ：画像を長押し → 「写真に保存」<span class="en-sub">Mobile: long-press the image → Save to Photos</span>
+      PC：右クリック → 「名前を付けて保存」<span class="en-sub">Desktop: right-click → Save image as…</span>
+    </p>
     <div class="row">
-      <a class="btn-gold" href="${dataUrl}" download="${filename}">ダウンロード · Download</a>
+      <a class="btn-gold" href="${dataUrl}" download="${filename}">⬇ ダウンロード · Download</a>
       <button class="btn-outline" onclick="document.getElementById('cardOverlay').remove()">閉じる · Close</button>
     </div>`;
   document.body.appendChild(o);
 }
 
-async function downloadCard(btn){
+async function shareResult(btn){
   if(!currentPersona) return;
-  const label=btn?btn.textContent:null;
-  if(btn){btn.disabled=true;btn.textContent='カードを仕立てています… · Composing…';}
+  const orig=btn?btn.textContent:null;
+  if(btn){ btn.disabled=true; btn.textContent='…'; }
+  const msg=currentPersona.share.ja+'\n'+currentPersona.share.en;
   try{
-    const cv=await composeCard(currentPersona);
-    showCardOverlay(cv.toDataURL('image/jpeg',0.92),'ori-mosaic-'+currentPersona.kanji+'.jpg');
-  }catch(e){
-    alert('画像の生成に失敗しました。もう一度お試しください。\nCould not create the image — please try again.');
-  }
-  if(btn){btn.disabled=false;btn.textContent=label;}
-}
-
-async function shareResult(){
-  if(!currentPersona) return;
-  const msg=currentPersona.share.ja+"\n"+currentPersona.share.en;
-  /* try sharing with the JPEG attached (mobile share sheets) */
-  if(navigator.canShare){
-    try{
-      const cv=await composeCard(currentPersona);
-      const blob=await new Promise(res=>cv.toBlob(res,'image/jpeg',0.92));
+    /* try file share (attaches JPEG to share sheet on mobile) */
+    if(navigator.canShare){
+      const dataUrl=await getCardDataUrl();
+      const blob=dataURLtoBlob(dataUrl);
       const file=new File([blob],'ori-mosaic-'+currentPersona.kanji+'.jpg',{type:'image/jpeg'});
       if(navigator.canShare({files:[file]})){
         await navigator.share({files:[file],text:msg,title:'Ori-Mosaic 織モザイク'});
+        if(btn){ btn.disabled=false; btn.textContent=orig; }
         return;
       }
-    }catch(e){ if(e && e.name==='AbortError') return; }
-  }
-  /* text-only native share */
-  if(navigator.share){
-    try{ await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg,url:location.href}); return; }
-    catch(e){ if(e && e.name==='AbortError') return; }
-  }
-  /* clipboard fallback */
-  try{
-    await navigator.clipboard.writeText(msg+"\n\n"+location.href);
-    const t=document.getElementById('toast'); t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),2600);
+    }
+    /* text-only native share (desktop / older mobile) */
+    if(navigator.share){
+      await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg,url:location.href});
+      if(btn){ btn.disabled=false; btn.textContent=orig; }
+      return;
+    }
   }catch(e){
-    prompt('結果をコピーしてください · Copy your result:',msg+"\n\n"+location.href);
+    if(e && e.name==='AbortError'){
+      if(btn){ btn.disabled=false; btn.textContent=orig; }
+      return;
+    }
   }
+  /* clipboard fallback — also show the card overlay so they can save the image */
+  try{
+    await navigator.clipboard.writeText(msg+'\n\n'+location.href);
+    const t=document.getElementById('toast'); t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }catch(e){
+    prompt('結果をコピーしてください · Copy your result:',msg+'\n\n'+location.href);
+  }
+  /* also show image so they can save it manually */
+  const dataUrl=await getCardDataUrl();
+  showCardOverlay(dataUrl,'ori-mosaic-'+currentPersona.kanji+'.jpg');
+  if(btn){ btn.disabled=false; btn.textContent=orig; }
 }
 
 /* ---------- compendium ---------- */
