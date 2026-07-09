@@ -366,7 +366,7 @@ footer{
 
 </main>
 
-<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v7 · 2026-07-09</span></footer>
+<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v10 · 2026-07-09</span></footer>
 <script>
 /* ================= gold flecks ================= */
 (function(){
@@ -895,7 +895,7 @@ const COMPENDIUM = [
 /* ================= state & flow (dual-language) ================= */
 let qi=0, score={S:0,D:0,I:0,H:0};
 let currentPersona=null, currentQ=null, currentChoice=null;
-let cachedCardDataUrl=null; /* cached so Save and Share use same render */
+let cachedCardDataUrl=null; /* pre-built so Save feels instant */
 
 const JPNUM=['第一問','第二問','第三問','第四問','第五問','第六問','第七問'];
 
@@ -1001,9 +1001,10 @@ function pickPersona(){
 
 function finish(){
   currentPersona=pickPersona();
-  cachedCardDataUrl=null; /* reset cache for new result */
+  cachedCardDataUrl=null;
   renderResult(currentPersona);
   show('result');
+  prewarmCard(); /* build the JPEG now, in the background */
 }
 
 function renderResult(p){
@@ -1037,7 +1038,7 @@ function renderResult(p){
     </div>
     <div class="actions">
       <button class="btn-gold" id="btn-save" onclick="downloadCard(this)">カードを画像で保存 · Save as image</button>
-      <button class="btn-outline" id="btn-share" onclick="shareResult(this)">共有 · Share</button>
+      <button class="btn-outline" id="btn-share" onclick="shareResult(this)">リンクを共有 · Share link</button>
       <button class="btn-outline" onclick="startQuiz()">もう一度引く · Draw again</button>
       <button class="btn-outline" onclick="show('compendium')">図鑑 · Compendium</button>
     </div>
@@ -1406,11 +1407,16 @@ async function composeCard(p){
   x.fillStyle='rgba(180,168,148,.8)'; x.font='400 22px '+BODY;
   x.fillText('Which card is in your blood?', W/2, bandY+bandH+138);
 
-  /* ── brand mark ── */
-  x.fillStyle='rgba(200,162,77,.25)';
-  x.fillRect(0,H-80,W,80);
+  /* ── brand mark + site link ── */
+  x.fillStyle='rgba(200,162,77,.22)';
+  x.fillRect(44,H-124,W-88,82);
   x.fillStyle='#c8a24d'; x.font='600 24px '+DISPLAY; spc('10px');
-  x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-42); spc('0px');
+  x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-86); spc('0px');
+  const siteUrl=location.host?(location.host+location.pathname).replace(/\/index\.html$/,'').replace(/\/$/,''):'';
+  if(siteUrl){
+    x.fillStyle='rgba(201,189,164,.92)'; x.font='400 21px '+BODY;
+    x.fillText(siteUrl, W/2, H-50);
+  }
 
   return cv;
 }
@@ -1473,47 +1479,51 @@ function showCardOverlay(dataUrl, filename){
   document.body.appendChild(o);
 }
 
+async function prewarmCard(){
+  /* pre-render the JPEG the moment the result appears, so the Save
+     button feels instant later (Share no longer needs the file). */
+  try{ await getCardDataUrl(); }catch(e){ console.error('prewarm failed',e); }
+}
+
+function showToast(text){
+  const t=document.getElementById('toast');
+  if(!t) return;
+  t.textContent=text;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
 async function shareResult(btn){
   if(!currentPersona) return;
   const orig=btn?btn.textContent:null;
+  const done=()=>{ if(btn){btn.disabled=false;btn.textContent=orig;} };
   if(btn){ btn.disabled=true; btn.textContent='…'; }
-  const msg=currentPersona.share.ja+'\n'+currentPersona.share.en;
-  try{
-    /* try file share (attaches JPEG to share sheet on mobile) */
-    if(navigator.canShare){
-      const dataUrl=await getCardDataUrl();
-      const blob=dataURLtoBlob(dataUrl);
-      const file=new File([blob],'ori-mosaic-'+currentPersona.kanji+'.jpg',{type:'image/jpeg'});
-      if(navigator.canShare({files:[file]})){
-        await navigator.share({files:[file],text:msg,title:'Ori-Mosaic 織モザイク'});
-        if(btn){ btn.disabled=false; btn.textContent=orig; }
-        return;
-      }
-    }
-    /* text-only native share (desktop / older mobile) */
-    if(navigator.share){
-      await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg,url:location.href});
-      if(btn){ btn.disabled=false; btn.textContent=orig; }
-      return;
-    }
-  }catch(e){
-    if(e && e.name==='AbortError'){
-      if(btn){ btn.disabled=false; btn.textContent=orig; }
-      return;
+
+  const link=/^https?:/.test(location.href)?location.href:'';
+  const msg=currentPersona.share.ja+'\n'+currentPersona.share.en
+    +(link?'\n\n▶ あなたも診断してみる / Try it yourself:\n'+link:'');
+
+  /* Share always sends TEXT + LINK only — never the image file.
+     ("Save as image" is the separate button for the JPEG.) This keeps
+     the two actions unambiguous: no native image/share-sheet preview
+     that could be mistaken for a download screen. */
+  if(navigator.share){
+    try{
+      await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg});
+      done(); return;
+    }catch(e){
+      if(e && e.name==='AbortError'){ done(); return; }
+      /* fall through to clipboard on any other error */
     }
   }
-  /* clipboard fallback — also show the card overlay so they can save the image */
+
   try{
-    await navigator.clipboard.writeText(msg+'\n\n'+location.href);
-    const t=document.getElementById('toast'); t.classList.add('show');
-    setTimeout(()=>t.classList.remove('show'),2800);
+    await navigator.clipboard.writeText(msg);
+    showToast('リンクをコピーしました。どこにでも貼り付けられます · Link copied — paste it anywhere ✦');
   }catch(e){
-    prompt('結果をコピーしてください · Copy your result:',msg+'\n\n'+location.href);
+    prompt('結果をコピーしてください · Copy your result:',msg);
   }
-  /* also show image so they can save it manually */
-  const dataUrl=await getCardDataUrl();
-  showCardOverlay(dataUrl,'ori-mosaic-'+currentPersona.kanji+'.jpg');
-  if(btn){ btn.disabled=false; btn.textContent=orig; }
+  done();
 }
 
 /* ---------- compendium ---------- */
