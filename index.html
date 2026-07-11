@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ori-Mosaic 織診断 — Discover Your Edo Aesthetic</title>
+<title>Ori-Mosaic 織診断 — Discover Your Edo Aesthetic (Takashimaya Edition)</title>
 <meta name="description" content="Seven small choices reveal your Edo aesthetic — and the real stories of Japanese craft, before you ever board the plane. 7つの選択が、あなたの江戸の美意識を明かします。">
 <!-- Social preview (website sharing). After you host the game, replace the two
      PLACEHOLDER values below with your real page URL and an uploaded preview
@@ -19,14 +19,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --lacquer:#12100e;
-  --lacquer-2:#1b1713;
-  --panel:#211b15;
-  --gold:#c8a24d;
-  --gold-hi:#eccf85;
-  --gold-dim:#8a6f38;
-  --washi:#f2e7d2;
-  --washi-dim:#c9bda4;
+  --lacquer:#fdfcfa;
+  --lacquer-2:#f6f2ec;
+  --panel:#ffffff;
+  --gold:#b01730;
+  --gold-hi:#8e1230;
+  --gold-dim:#d8bfc4;
+  --washi:#33302c;
+  --washi-dim:#6e675e;
   --enji:#8e2c33;
   --kon:#232f4b;
   --display:'Shippori Mincho', 'Hiragino Mincho ProN', serif;
@@ -45,14 +45,14 @@ body{
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(200,162,77,.05), transparent 55%),
+    radial-gradient(ellipse at 50% 0%, rgba(176,23,48,.05), transparent 55%),
     radial-gradient(ellipse at 50% 115%, rgba(142,44,51,.07), transparent 60%);
 }
 #flecks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .fleck{
   position:absolute;background:linear-gradient(135deg,var(--gold-hi),var(--gold-dim));
   opacity:.55;border-radius:30% 70% 60% 40%;
-  box-shadow:0 0 6px rgba(232,207,133,.25);
+  box-shadow:0 0 6px rgba(199,106,128,.25);
 }
 @media (prefers-reduced-motion: no-preference){
   .fleck{animation:glint 7s ease-in-out infinite}
@@ -61,18 +61,18 @@ body::before{
 
 /* dual-language rendering: Japanese primary, English beneath */
 .en-sub{
-  display:block;color:#b0a48e;font-size:.84em;font-family:var(--body);
+  display:block;color:#7a6d59;font-size:.84em;font-family:var(--body);
   font-weight:400;letter-spacing:.02em;margin-top:4px;line-height:1.6;
 }
 #intro h1 .en-sub{font-size:18px;letter-spacing:.05em;margin-top:14px}
 .q-text .en-sub{font-size:16px;margin-top:10px}
 .fact .en-sub{margin-top:10px}
-.name-en{font-family:var(--display);color:#b0a48e;font-size:17px;letter-spacing:.12em;margin-top:6px}
+.name-en{font-family:var(--display);color:#7a6d59;font-size:17px;letter-spacing:.12em;margin-top:6px}
 
 /* "your choice" echo on the fact page */
 .choice-echo{
-  border:1px solid #3a3021;border-radius:8px;padding:12px 16px;margin:12px 0 16px;
-  background:#171209;font-size:14px;color:var(--washi);
+  border:1px solid #ddd0b4;border-radius:8px;padding:12px 16px;margin:12px 0 16px;
+  background:#f6f0e0;font-size:14px;color:var(--washi);
 }
 .choice-echo .lbl{
   font-family:var(--display);font-size:11px;letter-spacing:.26em;color:var(--gold);
@@ -88,9 +88,9 @@ body::before{
 }
 .overlay img{
   max-width:min(86vw,420px);max-height:62vh;border:1px solid var(--gold);
-  border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.7);
+  border-radius:10px;box-shadow:0 20px 60px rgba(90,70,30,.2);
 }
-.overlay .cap{color:#c0b498;font-size:14.5px;text-align:center;max-width:48ch;line-height:1.75}
+.overlay .cap{color:#5c5140;font-size:14.5px;text-align:center;max-width:48ch;line-height:1.75}
 .overlay .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .overlay .btn-gold{margin-top:0;text-decoration:none;display:inline-block}
 
@@ -103,7 +103,7 @@ body::before{
 /* ---------- shared card frame ---------- */
 .frame{
   border:1px solid var(--gold-dim);
-  outline:1px solid rgba(200,162,77,.25);
+  outline:1px solid rgba(176,23,48,.25);
   outline-offset:4px;
   background:linear-gradient(160deg,var(--panel),var(--lacquer-2) 70%);
   border-radius:10px;
@@ -125,19 +125,19 @@ h1,h2,h3{font-family:var(--display);font-weight:700;color:var(--washi)}
   width:92px;height:92px;margin:0 auto 18px;border-radius:50%;
   border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-size:44px;color:var(--gold-hi);
-  background:radial-gradient(circle at 35% 30%, #2a2118, #14100b);
-  box-shadow:0 0 0 5px rgba(200,162,77,.12), 0 8px 30px rgba(0,0,0,.6);
+  background:radial-gradient(circle at 35% 30%, #fdf5f6, #f6e9ec);
+  box-shadow:0 0 0 5px rgba(176,23,48,.12), 0 8px 30px rgba(90,70,30,.16);
 }
 .jp-line{font-family:var(--display);color:var(--gold);letter-spacing:.28em;font-size:13px;margin-bottom:10px}
 #intro h1{font-size:clamp(28px,6.2vw,44px);letter-spacing:.05em;line-height:1.3}
-#intro .sub{margin:14px auto 6px;max-width:48ch;color:#c0b498;font-size:16px;line-height:1.85}
+#intro .sub{margin:14px auto 6px;max-width:48ch;color:#5c5140;font-size:16px;line-height:1.85}
 .hand-preview{display:flex;justify-content:center;gap:0;margin:34px 0 10px;height:132px;align-items:flex-end}
 .mini-card{
   width:76px;height:112px;border-radius:7px;border:1px solid var(--gold-dim);
-  background:linear-gradient(170deg,#241d15,#161210);
+  background:linear-gradient(170deg,#ffffff,#f3ecdb);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   font-family:var(--display);color:var(--gold-hi);
-  box-shadow:0 10px 24px rgba(0,0,0,.55);
+  box-shadow:0 10px 24px rgba(90,70,30,.14);
   transform-origin:bottom center;
 }
 .mini-card small{font-size:9px;letter-spacing:.22em;color:var(--washi-dim);font-family:var(--body)}
@@ -150,45 +150,45 @@ h1,h2,h3{font-family:var(--display);font-weight:700;color:var(--washi)}
 button{font-family:var(--body);cursor:pointer;border:none}
 .btn-gold{
   margin-top:26px;padding:15px 40px;border-radius:6px;
-  background:linear-gradient(140deg,var(--gold-hi),var(--gold) 55%,var(--gold-dim));
-  color:#241a08;font-weight:700;font-size:16px;letter-spacing:.1em;
-  box-shadow:0 6px 22px rgba(200,162,77,.28);
+  background:linear-gradient(140deg,#c22243,#b01730 55%,#8e1230);
+  color:#ffffff;font-weight:700;font-size:16px;letter-spacing:.1em;
+  box-shadow:0 6px 22px rgba(176,23,48,.28);
   transition:transform .15s ease, box-shadow .15s ease;
 }
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(200,162,77,.4)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(176,23,48,.4)}
 .btn-gold:focus-visible,.btn-ghost:focus-visible,.opt:focus-visible,.btn-outline:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
 .btn-ghost{
   margin-top:14px;background:transparent;color:var(--gold);font-size:13px;letter-spacing:.14em;
   border-bottom:1px solid var(--gold-dim);padding:4px 2px;
 }
-.note-tiny{margin-top:26px;color:#6d6353;font-size:11.5px;letter-spacing:.06em}
+.note-tiny{margin-top:26px;color:#9a8c74;font-size:11.5px;letter-spacing:.06em}
 
 /* ---------- quiz ---------- */
 .hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:12px;flex-wrap:wrap}
 .hud .qcount{font-family:var(--display);color:var(--gold);letter-spacing:.18em;font-size:12px}
 .layers{display:flex;gap:8px}
 .layer-seal{
-  width:34px;height:34px;border-radius:50%;border:1px solid #4a3d28;
+  width:34px;height:34px;border-radius:50%;border:1px solid #d5c6a3;
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--display);font-size:15px;color:#5b4f3b;
+  font-family:var(--display);font-size:15px;color:#b3a486;
   transition:all .4s ease;
 }
 .layer-seal.lit{
   border-color:var(--gold);color:var(--gold-hi);
-  background:radial-gradient(circle,#2c2113,#181209);
-  box-shadow:0 0 10px rgba(200,162,77,.35);
+  background:radial-gradient(circle,#fbeff1,#f4dfe3);
+  box-shadow:0 0 10px rgba(176,23,48,.35);
 }
 .q-scene{font-size:13px;color:var(--gold);letter-spacing:.22em;font-family:var(--display);margin-bottom:10px}
 .q-text{font-size:clamp(20px,4.8vw,26px);line-height:1.6;margin-bottom:26px;font-family:var(--display);font-weight:600}
 .opts{display:grid;gap:14px}
 .opt{
   text-align:left;padding:18px 20px;border-radius:8px;
-  border:1px solid #3c3223;background:linear-gradient(160deg,#1e1913,#161210);
+  border:1px solid #ddd0b4;background:linear-gradient(160deg,#fffdf7,#f8f2e4);
   color:var(--washi);font-size:16px;line-height:1.7;
   display:flex;align-items:center;gap:14px;
   transition:border-color .15s, transform .15s, background .15s;
 }
-.opt:hover{border-color:var(--gold);transform:translateX(4px);background:#231c13}
+.opt:hover{border-color:var(--gold);transform:translateX(4px);background:#f6edd8}
 .opt .swatch{flex:0 0 56px;height:56px;border-radius:6px;border:1px solid var(--gold-dim);overflow:hidden}
 .opt .swatch svg{display:block;width:100%;height:100%}
 .opt b{font-family:var(--display);color:var(--gold-hi);font-weight:600}
@@ -196,29 +196,29 @@ button{font-family:var(--body);cursor:pointer;border:none}
 /* fact interstitial */
 .fact{
   border-left:3px solid var(--gold);
-  background:linear-gradient(160deg,#221b12,#191410);
+  background:linear-gradient(160deg,#fbf6ea,#f4edda);
   border-radius:0 8px 8px 0;
   padding:18px 20px;margin-top:4px;
 }
 .fact .tag{
-  display:inline-block;font-family:var(--display);font-size:11px;color:#1d1508;
+  display:inline-block;font-family:var(--display);font-size:11px;color:#ffffff;
   background:linear-gradient(140deg,var(--gold-hi),var(--gold));
   padding:2px 10px;border-radius:3px;letter-spacing:.24em;margin-bottom:10px;
 }
 .fact h3{font-size:19px;margin-bottom:10px;color:var(--gold-hi)}
-.fact p{font-size:16px;color:#c0b498;line-height:1.9}
+.fact p{font-size:16px;color:#5c5140;line-height:1.9}
 .fact .btn-gold{margin-top:18px;padding:11px 30px;font-size:14px}
 
 /* ---------- result ---------- */
 .result-card{
   border:1.5px solid var(--gold);border-radius:14px;overflow:hidden;
-  background:#14100c;
-  box-shadow:0 0 0 6px rgba(200,162,77,.12), 0 24px 60px rgba(0,0,0,.65);
+  background:#fffdf8;
+  box-shadow:0 0 0 6px rgba(176,23,48,.12), 0 24px 60px rgba(90,70,30,.16);
 }
-.result-card.hiden{border-color:var(--gold-hi);box-shadow:0 0 0 6px rgba(236,207,133,.22),0 0 60px rgba(200,162,77,.35)}
+.result-card.hiden{border-color:var(--gold-hi);box-shadow:0 0 0 6px rgba(236,207,133,.22),0 0 60px rgba(176,23,48,.35)}
 .rc-banner{
   display:flex;justify-content:space-between;align-items:center;
-  padding:10px 16px;background:linear-gradient(90deg,#241c10,#1a1409);
+  padding:10px 16px;background:linear-gradient(90deg,#f3ecd7,#ede4cc);
   border-bottom:1px solid var(--gold-dim);
 }
 .rc-banner .cat{font-family:var(--display);letter-spacing:.35em;color:var(--gold-hi);font-size:13px}
@@ -232,7 +232,7 @@ button{font-family:var(--body);cursor:pointer;border:none}
 .rc-name{text-align:center;padding:20px 18px 6px}
 .rc-name .big-kanji{
   font-family:var(--display);font-size:64px;line-height:1;color:var(--gold-hi);
-  text-shadow:0 4px 24px rgba(200,162,77,.35);
+  text-shadow:0 4px 24px rgba(176,23,48,.35);
 }
 .rc-name h2{font-size:24px;margin-top:8px;letter-spacing:.04em}
 .rc-name .romaji{color:var(--washi-dim);font-size:13px;letter-spacing:.24em;margin-top:2px}
@@ -240,12 +240,12 @@ button{font-family:var(--body);cursor:pointer;border:none}
 .rc-ori{margin:22px 18px 0;border:1px solid var(--gold-dim);border-radius:8px;overflow:hidden}
 .rc-ori .band{height:56px}
 .rc-ori .band svg{display:block;width:100%;height:100%}
-.rc-ori .cap{padding:14px 18px;font-size:15.5px;color:#bfb29a;background:#1a1510;line-height:1.85}
+.rc-ori .cap{padding:14px 18px;font-size:15.5px;color:#5c5140;background:#f6f0e0;line-height:1.85}
 .rc-ori .cap b{color:var(--gold-hi);font-family:var(--display);font-weight:600}
 .rc-rows{padding:18px}
 .rc-row{
-  border:1px solid #352c1e;border-radius:8px;padding:14px 16px;margin-bottom:12px;
-  background:linear-gradient(160deg,#1d1710,#15110c);
+  border:1px solid #e3d7bc;border-radius:8px;padding:14px 16px;margin-bottom:12px;
+  background:linear-gradient(160deg,#fcf8ee,#f6f0e0);
 }
 .rc-row h4{font-family:var(--display);color:var(--gold);font-size:13.5px;letter-spacing:.24em;margin-bottom:10px;font-weight:600}
 .rc-row p,.rc-row li{font-size:16px;color:var(--washi);line-height:1.85}
@@ -254,7 +254,7 @@ button{font-family:var(--body);cursor:pointer;border:none}
 .rc-row li::before{content:"◆";position:absolute;left:0;top:6px;font-size:9px;color:var(--gold)}
 .rc-row li b{color:var(--washi)}
 .rc-orn{display:flex;align-items:center;gap:16px}
-.rc-orn .kz{flex:0 0 84px;height:64px;border:1px solid #3a3021;border-radius:6px;background:#171209;overflow:hidden}
+.rc-orn .kz{flex:0 0 84px;height:64px;border:1px solid #ddd0b4;border-radius:6px;background:#171209;overflow:hidden}
 .rc-orn .kz svg{display:block;width:100%;height:100%}
 .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
 .actions .btn-gold{margin-top:0}
@@ -276,8 +276,8 @@ button{font-family:var(--body);cursor:pointer;border:none}
 .comp-grid{display:grid;grid-template-columns:1fr;gap:14px}
 @media(min-width:560px){.comp-grid{grid-template-columns:1fr 1fr}}
 .comp-card{
-  border:1px solid #3a3021;border-radius:10px;overflow:hidden;
-  background:linear-gradient(160deg,#1e1811,#15110c);
+  border:1px solid #ddd0b4;border-radius:10px;overflow:hidden;
+  background:linear-gradient(160deg,#fffdf7,#f7f1e2);
   display:flex;flex-direction:column;
 }
 .comp-art{height:110px;border-bottom:1px solid #33291b;background:#151009}
@@ -288,13 +288,20 @@ button{font-family:var(--body);cursor:pointer;border:none}
   display:inline-block;border:1px solid var(--gold-dim);border-radius:50%;
   width:26px;height:26px;text-align:center;line-height:24px;font-size:13px;margin-right:8px;
 }
-.comp-card p{font-size:15.5px;color:#b8ab96;line-height:1.85}
+.comp-card p{font-size:15.5px;color:#5c5140;line-height:1.85}
 .back-row{margin-top:26px;text-align:center}
 
 footer{
   position:relative;z-index:1;text-align:center;padding:0 20px 40px;
-  color:#5d5445;font-size:11px;letter-spacing:.14em;
+  color:#9a8c74;font-size:11px;letter-spacing:.14em;
 }
+
+/* ---- light-theme adjustments ---- */
+.overlay .cap,.overlay .cap .en-sub{color:#d8ccb2}
+.overlay .btn-outline{color:#eccf85;border-color:#8a6f38}
+.rc-orn .kz{background:#171209;border-color:#3a3021} /* ornament miniature stays a dark lacquer panel */
+.comp-art{background:#151009} /* craft illustrations mounted on dark lacquer, like byobu panels */
+.fleck{opacity:.3}
 
 /* ---- stamp rally & Takashimaya promo ---- */
 .promo{margin-top:28px;border:1.5px solid var(--gold);border-radius:12px;overflow:hidden;background:linear-gradient(160deg,var(--panel),var(--lacquer-2))}
@@ -307,12 +314,12 @@ footer{
 .stamp{width:54px;height:54px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f6efe0;font-family:var(--display);border:2px dashed rgba(246,239,224,.55);box-shadow:0 3px 10px rgba(0,0,0,.22)}
 .stamp .n{font-size:10px;opacity:.85;line-height:1}
 .stamp .k{font-size:14px;font-weight:700;line-height:1.25}
-.promo-tk{margin:14px 16px 18px;border:1px solid var(--gold-dim);border-radius:8px;padding:14px 18px;background:rgba(200,162,77,.08);text-align:left}
+.promo-tk{margin:14px 16px 18px;border:1px solid var(--gold-dim);border-radius:8px;padding:14px 18px;background:rgba(176,23,48,.08);text-align:left}
 .promo-tk h4{font-family:var(--display);color:var(--gold);font-size:13px;letter-spacing:.22em;margin-bottom:8px}
 .promo-tk p{font-size:14.5px;color:var(--washi);line-height:1.85}
 .promo-note{font-size:12px;color:var(--washi-dim);opacity:.85;margin-top:10px}
 .promo-map{display:inline-block;margin-top:14px;padding:12px 28px;border-radius:6px;border:1px solid var(--gold);color:var(--gold-hi);text-decoration:none;font-size:14px;letter-spacing:.08em}
-.promo-map:hover{background:rgba(200,162,77,.12)}
+.promo-map:hover{background:rgba(176,23,48,.12)}
 </style>
 </head>
 <body>
@@ -384,7 +391,7 @@ footer{
 
 </main>
 
-<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v12 · 2026-07-09</span></footer>
+<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v12 TAKASHIMAYA · 2026-07-09</span></footer>
 <script>
 /* ================= gold flecks ================= */
 (function(){
@@ -1078,7 +1085,7 @@ function renderResult(p){
         <a class="promo-map" href="nihonbashi-map.png" target="_blank" rel="noopener">エリアマップを見る · View the area map</a>
       </div>
       <div class="promo-tk">
-        <h4>高島屋特典 · TAKASHIMAYA BONUS</h4>
+        <h4><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-2px;margin-right:7px" aria-hidden="true"><g fill="none" stroke="#b01730" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="2.6"/><path d="M12 5.2 a6.8 6.8 0 0 1 6.8 6.8 a6.8 6.8 0 0 1 -6.8 6.8 a6.8 6.8 0 0 1 -6.8 -6.8"/><path d="M12 8.4 a3.6 3.6 0 0 1 3.6 3.6"/></g></svg>高島屋特典 · TAKASHIMAYA BONUS</h4>
         <p>集めたスタンプと、この診断結果の画面を日本橋高島屋6階・美術工芸フロアへ。限定「織モザイク」カードなど、特典をご用意しています。<span class="en-sub">Bring your stamps and show this result screen at the Art &amp; Craft floor, Nihonbashi Takashimaya 6F, to receive limited Ori-Mosaic cards and other bonuses.</span></p>
         <p class="promo-note">※特典内容・実施期間・対象店舗などの詳細は、店頭または公式サイトでご確認ください。 · Details, terms and dates: please check in store or on the official site.</p>
       </div>
@@ -1373,9 +1380,9 @@ async function composeCard(p){
   const BODY='"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Meiryo",sans-serif';
 
   /* ── background ── */
-  x.fillStyle='#12100e'; x.fillRect(0,0,W,H);
+  x.fillStyle='#fdfcfa'; x.fillRect(0,0,W,H);
   const bg=x.createRadialGradient(W/2,0,0,W/2,0,H*.85);
-  bg.addColorStop(0,'rgba(200,162,77,.09)'); bg.addColorStop(1,'rgba(0,0,0,0)');
+  bg.addColorStop(0,'rgba(176,23,48,.06)'); bg.addColorStop(1,'rgba(0,0,0,0)');
   x.fillStyle=bg; x.fillRect(0,0,W,H);
 
   /* gold flecks */
@@ -1383,33 +1390,33 @@ async function composeCard(p){
     x.save();
     x.translate((i*173)%W,(i*211)%H);
     x.rotate(i*.72);
-    x.fillStyle=i%3?'#c8a24d':'#eccf85';
-    x.globalAlpha=.2+((i*37)%50)/160;
+    x.fillStyle=i%3?'#e0a7b4':'#c76a80';
+    x.globalAlpha=.12+((i*37)%50)/220;
     x.fillRect(0,0,3+(i%4)*2,2+(i%3));
     x.restore();
   }
   x.globalAlpha=1;
 
   /* ── outer + inner frame ── */
-  x.strokeStyle=isH?'#eccf85':'#c8a24d'; x.lineWidth=3.5;
+  x.strokeStyle=isH?'#c9a13e':'#b01730'; x.lineWidth=3;
   roundRect(x,28,28,W-56,H-56,8); x.stroke();
-  x.strokeStyle='rgba(200,162,77,.3)'; x.lineWidth=1;
+  x.strokeStyle='rgba(176,23,48,.28)'; x.lineWidth=1;
   roundRect(x,42,42,W-84,H-84,5); x.stroke();
 
   const spc=v=>{try{x.letterSpacing=v}catch(e){}};
 
   /* ── category banner ── */
-  x.fillStyle='rgba(36,28,16,.9)'; x.fillRect(90,52,W-180,52);
-  x.strokeStyle='rgba(200,162,77,.35)'; x.lineWidth=1;
+  x.fillStyle='rgba(247,238,240,.95)'; x.fillRect(90,52,W-180,52);
+  x.strokeStyle='rgba(176,23,48,.35)'; x.lineWidth=1;
   x.strokeRect(90,52,W-180,52);
-  x.fillStyle='#eccf85'; x.textAlign='center'; x.font='600 27px '+DISPLAY; spc('14px');
+  x.fillStyle='#8e1230'; x.textAlign='center'; x.font='600 27px '+DISPLAY; spc('14px');
   x.fillText(p.cat, W/2, 87); spc('0px');
 
   let sceneY=120;
   if(isH){
-    x.fillStyle='rgba(236,207,133,.15)';
+    x.fillStyle='rgba(176,138,62,.14)';
     x.fillRect(90,110,W-180,36);
-    x.fillStyle='#eccf85'; x.font='500 22px '+DISPLAY; spc('7px');
+    x.fillStyle='#8a6420'; x.font='500 22px '+DISPLAY; spc('7px');
     x.fillText('✦  秘伝  ·  SECRET CARD  ✦', W/2, 134); spc('0px');
     sceneY=154;
   }
@@ -1417,7 +1424,7 @@ async function composeCard(p){
   /* ── scene (drawn natively — no SVG blob) ── */
   const sceneKey=p.sceneKey||'snow';
   const sW=W-180, sH=Math.round(sW*0.526); /* 900:473 ratio */
-  x.strokeStyle='#8a6f38'; x.lineWidth=1.5;
+  x.strokeStyle='#d8bfc4'; x.lineWidth=1.5;
   x.strokeRect(89,sceneY-1,sW+2,sH+2);
   drawSceneOnCanvas(x, sceneKey, 90, sceneY, sW, sH);
 
@@ -1425,43 +1432,43 @@ async function composeCard(p){
   const ky=sceneY+sH+160;
   if(isH){
     const halo=x.createRadialGradient(W/2,ky-55,8,W/2,ky-55,210);
-    halo.addColorStop(0,'rgba(236,207,133,.32)'); halo.addColorStop(1,'rgba(0,0,0,0)');
+    halo.addColorStop(0,'rgba(201,161,62,.22)'); halo.addColorStop(1,'rgba(0,0,0,0)');
     x.fillStyle=halo; x.fillRect(W/2-220,ky-280,440,440);
   }
-  x.shadowColor='rgba(200,162,77,.5)'; x.shadowBlur=28;
-  x.fillStyle='#eccf85'; x.font='700 160px '+DISPLAY;
+  x.shadowColor='rgba(176,23,48,.2)'; x.shadowBlur=20;
+  x.fillStyle='#33302c'; x.font='700 160px '+DISPLAY;
   x.fillText(p.kanji, W/2, ky); x.shadowBlur=0;
 
   /* ── name ── */
-  x.fillStyle='#f2e7d2'; x.font='700 50px '+DISPLAY;
+  x.fillStyle='#33302c'; x.font='700 50px '+DISPLAY;
   x.fillText(p.name.ja, W/2, ky+78);
-  x.fillStyle='#c9bda4'; x.font='500 27px '+DISPLAY; spc('3px');
+  x.fillStyle='#6e675e'; x.font='500 27px '+DISPLAY; spc('3px');
   x.fillText(p.name.en, W/2, ky+120); spc('0px');
 
   /* ── fabric band ── */
   const bandY=ky+152, bandH=82;
-  x.strokeStyle='#8a6f38'; x.lineWidth=1.5;
+  x.strokeStyle='#d8bfc4'; x.lineWidth=1.5;
   x.strokeRect(89,bandY-1,sW+2,bandH+2);
   const [patKey,patFg,patBg]=p.ori.pat;
   drawPatternOnCanvas(x, patKey, patFg, patBg, 90, bandY, sW, bandH);
 
-  x.fillStyle='#eccf85'; x.font='600 31px '+DISPLAY;
+  x.fillStyle='#8e1230'; x.font='600 31px '+DISPLAY;
   x.fillText('織  '+FAB[p.kanji], W/2, bandY+bandH+52);
 
   /* ── taglines ── */
-  x.fillStyle='#c9bda4'; x.font='500 27px '+BODY;
+  x.fillStyle='#6e675e'; x.font='500 27px '+BODY;
   x.fillText('あなたの血に流れる一枚は？', W/2, bandY+bandH+103);
-  x.fillStyle='rgba(180,168,148,.8)'; x.font='400 22px '+BODY;
+  x.fillStyle='rgba(110,103,94,.85)'; x.font='400 22px '+BODY;
   x.fillText('Which card is in your blood?', W/2, bandY+bandH+138);
 
   /* ── brand mark + site link ── */
-  x.fillStyle='rgba(200,162,77,.22)';
+  x.fillStyle='rgba(176,23,48,.07)';
   x.fillRect(44,H-124,W-88,82);
-  x.fillStyle='#c8a24d'; x.font='600 24px '+DISPLAY; spc('10px');
+  x.fillStyle='#b01730'; x.font='600 24px '+DISPLAY; spc('10px');
   x.fillText('ORI-MOSAIC · 織モザイク', W/2, H-86); spc('0px');
   const siteUrl=location.host?(location.host+location.pathname).replace(/\/index\.html$/,'').replace(/\/$/,''):'';
   if(siteUrl){
-    x.fillStyle='rgba(201,189,164,.92)'; x.font='400 21px '+BODY;
+    x.fillStyle='rgba(110,103,94,.92)'; x.font='400 21px '+BODY;
     x.fillText(siteUrl, W/2, H-50);
   }
 
