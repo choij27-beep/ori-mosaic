@@ -295,6 +295,24 @@ footer{
   position:relative;z-index:1;text-align:center;padding:0 20px 40px;
   color:#5d5445;font-size:11px;letter-spacing:.14em;
 }
+
+/* ---- stamp rally & Takashimaya promo ---- */
+.promo{margin-top:28px;border:1.5px solid var(--gold);border-radius:12px;overflow:hidden;background:linear-gradient(160deg,var(--panel),var(--lacquer-2))}
+.promo-head{padding:18px 20px 6px;text-align:center}
+.promo-head .kicker{font-family:var(--display);font-size:11px;letter-spacing:.3em;color:var(--gold);display:block;margin-bottom:8px}
+.promo-head h3{font-family:var(--display);font-size:20px;color:var(--washi)}
+.promo-body{padding:6px 20px 20px;text-align:center}
+.promo-body p{font-size:15px;color:var(--washi-dim);line-height:1.85;max-width:56ch;margin:0 auto}
+.stamps{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0 8px}
+.stamp{width:54px;height:54px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f6efe0;font-family:var(--display);border:2px dashed rgba(246,239,224,.55);box-shadow:0 3px 10px rgba(0,0,0,.22)}
+.stamp .n{font-size:10px;opacity:.85;line-height:1}
+.stamp .k{font-size:14px;font-weight:700;line-height:1.25}
+.promo-tk{margin:14px 16px 18px;border:1px solid var(--gold-dim);border-radius:8px;padding:14px 18px;background:rgba(200,162,77,.08);text-align:left}
+.promo-tk h4{font-family:var(--display);color:var(--gold);font-size:13px;letter-spacing:.22em;margin-bottom:8px}
+.promo-tk p{font-size:14.5px;color:var(--washi);line-height:1.85}
+.promo-note{font-size:12px;color:var(--washi-dim);opacity:.85;margin-top:10px}
+.promo-map{display:inline-block;margin-top:14px;padding:12px 28px;border-radius:6px;border:1px solid var(--gold);color:var(--gold-hi);text-decoration:none;font-size:14px;letter-spacing:.08em}
+.promo-map:hover{background:rgba(200,162,77,.12)}
 </style>
 </head>
 <body>
@@ -366,7 +384,7 @@ footer{
 
 </main>
 
-<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v10 · 2026-07-09</span></footer>
+<footer>ORI-MOSAIC 織モザイク · A PLAYFUL PRELUDE TO NIHONBASHI · 伝統を「所有」し、未来を「描く」<br><span style="opacity:.55">v12 · 2026-07-09</span></footer>
 <script>
 /* ================= gold flecks ================= */
 (function(){
@@ -895,7 +913,7 @@ const COMPENDIUM = [
 /* ================= state & flow (dual-language) ================= */
 let qi=0, score={S:0,D:0,I:0,H:0};
 let currentPersona=null, currentQ=null, currentChoice=null;
-let cachedCardDataUrl=null; /* pre-built so Save feels instant */
+let cachedCardDataUrl=null, cachedCardFile=null; /* pre-built so Share/Save feel instant */
 
 const JPNUM=['第一問','第二問','第三問','第四問','第五問','第六問','第七問'];
 
@@ -933,7 +951,7 @@ function renderStatic(){
 /* ---------- quiz ---------- */
 function startQuiz(){
   qi=0; score={S:0,D:0,I:0,H:0};
-  currentPersona=null; currentQ=null; currentChoice=null; cachedCardDataUrl=null;
+  currentPersona=null; currentQ=null; currentChoice=null; cachedCardDataUrl=null; cachedCardFile=null;
   document.querySelectorAll('.layer-seal').forEach(el=>el.classList.remove('lit'));
   renderQuestion();
   show('quiz');
@@ -1001,7 +1019,7 @@ function pickPersona(){
 
 function finish(){
   currentPersona=pickPersona();
-  cachedCardDataUrl=null;
+  cachedCardDataUrl=null; cachedCardFile=null;
   renderResult(currentPersona);
   show('result');
   prewarmCard(); /* build the JPEG now, in the background */
@@ -1036,9 +1054,38 @@ function renderResult(p){
         </div>
       </div>
     </div>
+
+    <!-- ================= STAMP RALLY & TAKASHIMAYA PROMO =================
+         EDIT HERE: reward details, dates, and terms in the 高島屋特典 block
+         below. The map button links to "nihonbashi-map.png" — upload your
+         map image with that exact filename to the same folder/repo.       -->
+    <div class="promo">
+      <div class="promo-head">
+        <span class="kicker">巡って、集める · THE REAL-WORLD QUEST</span>
+        <h3>日本橋 工房スタンプラリー<span class="en-sub">Nihonbashi Craft Workshop Stamp Rally</span></h3>
+      </div>
+      <div class="promo-body">
+        <p>マップの7つの工房・専門店を巡り、スタンプと素材サンプルを集めよう。あなたが引いた一枚が、本物の職人の手仕事へつながります。<span class="en-sub">Visit the seven workshops and specialty shops on our map to collect stamps and real material samples — the card you drew leads to real artisans' hands.</span></p>
+        <div class="stamps" aria-label="7 workshop stamps">
+          <span class="stamp" style="background:#b08a3e"><span class="n">1</span><span class="k">和紙</span></span>
+          <span class="stamp" style="background:#232f4b"><span class="n">2</span><span class="k">藍</span></span>
+          <span class="stamp" style="background:#8e4a33"><span class="n">3</span><span class="k">陶</span></span>
+          <span class="stamp" style="background:#74883c"><span class="n">4</span><span class="k">竹</span></span>
+          <span class="stamp" style="background:#7c2320"><span class="n">5</span><span class="k">漆</span></span>
+          <span class="stamp" style="background:#49678a"><span class="n">6</span><span class="k">硝子</span></span>
+          <span class="stamp" style="background:#a5641f"><span class="n">7</span><span class="k">金工</span></span>
+        </div>
+        <a class="promo-map" href="nihonbashi-map.png" target="_blank" rel="noopener">エリアマップを見る · View the area map</a>
+      </div>
+      <div class="promo-tk">
+        <h4>高島屋特典 · TAKASHIMAYA BONUS</h4>
+        <p>集めたスタンプと、この診断結果の画面を日本橋高島屋6階・美術工芸フロアへ。限定「織モザイク」カードなど、特典をご用意しています。<span class="en-sub">Bring your stamps and show this result screen at the Art &amp; Craft floor, Nihonbashi Takashimaya 6F, to receive limited Ori-Mosaic cards and other bonuses.</span></p>
+        <p class="promo-note">※特典内容・実施期間・対象店舗などの詳細は、店頭または公式サイトでご確認ください。 · Details, terms and dates: please check in store or on the official site.</p>
+      </div>
+    </div>
     <div class="actions">
       <button class="btn-gold" id="btn-save" onclick="downloadCard(this)">カードを画像で保存 · Save as image</button>
-      <button class="btn-outline" id="btn-share" onclick="shareResult(this)">リンクを共有 · Share link</button>
+      <button class="btn-outline" id="btn-share" onclick="shareResult(this)">画像とリンクを共有 · Share image + link</button>
       <button class="btn-outline" onclick="startQuiz()">もう一度引く · Draw again</button>
       <button class="btn-outline" onclick="show('compendium')">図鑑 · Compendium</button>
     </div>
@@ -1480,9 +1527,14 @@ function showCardOverlay(dataUrl, filename){
 }
 
 async function prewarmCard(){
-  /* pre-render the JPEG the moment the result appears, so the Save
-     button feels instant later (Share no longer needs the file). */
-  try{ await getCardDataUrl(); }catch(e){ console.error('prewarm failed',e); }
+  /* pre-render the JPEG (and a File for sharing) the moment the result
+     appears, so tapping Share/Save later feels instant — mobile share
+     sheets only stay "armed" for a moment after your tap. */
+  try{
+    const dataUrl=await getCardDataUrl();
+    cachedCardFile=new File([dataURLtoBlob(dataUrl)],
+      'ori-mosaic-'+currentPersona.kanji+'.jpg',{type:'image/jpeg'});
+  }catch(e){ console.error('prewarm failed',e); }
 }
 
 function showToast(text){
@@ -1503,26 +1555,45 @@ async function shareResult(btn){
   const msg=currentPersona.share.ja+'\n'+currentPersona.share.en
     +(link?'\n\n▶ あなたも診断してみる / Try it yourself:\n'+link:'');
 
-  /* Share always sends TEXT + LINK only — never the image file.
-     ("Save as image" is the separate button for the JPEG.) This keeps
-     the two actions unambiguous: no native image/share-sheet preview
-     that could be mistaken for a download screen. */
+  /* 1) best case: one native share sheet carrying BOTH the image and the
+        text+link together (most mobile browsers). Note: the OS will show
+        its own large image preview before the destination list — that's
+        normal share-sheet behaviour, not a stuck screen. */
+  if(navigator.share && cachedCardFile && navigator.canShare
+     && navigator.canShare({files:[cachedCardFile]})){
+    try{
+      await navigator.share({files:[cachedCardFile],text:msg,title:'Ori-Mosaic 織モザイク'});
+      done(); return;
+    }catch(e){
+      if(e && e.name==='AbortError'){ done(); return; }
+      /* fall through if the OS rejects file-sharing for some reason */
+    }
+  }
+
+  /* 2) text+link only, via native share (covers most desktop browsers,
+        which support Web Share for text/links but not files) */
   if(navigator.share){
     try{
       await navigator.share({title:'Ori-Mosaic 織モザイク',text:msg});
       done(); return;
     }catch(e){
       if(e && e.name==='AbortError'){ done(); return; }
-      /* fall through to clipboard on any other error */
     }
   }
 
+  /* 3) no native share available at all: copy the text+link to the
+        clipboard AND pop the image so the person still walks away with
+        both pieces — just two quick manual steps instead of one. */
   try{
     await navigator.clipboard.writeText(msg);
-    showToast('リンクをコピーしました。どこにでも貼り付けられます · Link copied — paste it anywhere ✦');
+    showToast('リンクをコピーしました。画像も表示します · Link copied — here\u2019s the image too ✦');
   }catch(e){
     prompt('結果をコピーしてください · Copy your result:',msg);
   }
+  try{
+    const dataUrl=await getCardDataUrl();
+    showCardOverlay(dataUrl,'ori-mosaic-'+currentPersona.kanji+'.jpg');
+  }catch(e){ console.error(e); }
   done();
 }
 
